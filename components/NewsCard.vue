@@ -31,10 +31,11 @@ defineProps<{
 
 <style scoped lang="scss">
 @use "~/assets/variables";
+@use "~/assets/utils";
 
 .news-card {
   padding: 1rem;
-  border-bottom: 1px solid variables.$border-color;
+  border-bottom: utils.toRem(1px) solid variables.$border-color;
   transition: background-color 0.2s;
   &:hover {
     background-color: variables.$news-card-background;
@@ -70,5 +71,4 @@ defineProps<{
     color: variables.$separator;
   }
 }
-
 </style>

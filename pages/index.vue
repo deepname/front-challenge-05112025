@@ -75,67 +75,68 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 @use "~/assets/variables";
+@use "~/assets/utils";
 
-  .page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-    &__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid variables.$border-color;
-    }
-    &__title {
-      margin: 0;
-      font-size: 2rem;
-      font-weight: 700;
-      color: variables.$text-color;
-    }
-    &__nav {
-      display: flex;
-      gap: 1rem;
-    }
-    &__link {
-      padding: 0.5rem 1rem;
-      background-color: variables.$text-color-hover;
-      color: variables.$bone-color;
-      text-decoration: none;
-      border-radius: 0.375rem;
-      font-weight: 500;
-      transition: background-color 0.2s;
-      &:hover {
-        background-color: variables.$hover-color;
-      }
-    }
-    &__search {
-      margin-bottom: 2rem;
-    }
-    &__content {
-      background: variables.$bone-color;;
-      border-radius: 0.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-    }
-    &__loading {
-      padding: 2rem;
-      text-align: center;
-      color: variables.$text-page-color;
-      &-more {
-        padding: 2rem;
-        text-align: center;
-        color: variables.$text-page-color;
-      }
-    }
-    &__empty {
-      padding: 2rem;
-      text-align: center;
-      color: variables.$text-page-color;
-    }
-    &__sentinel {
-      height: 1px;
+.page {
+  max-width: utils.toRem(1200px);
+  margin: 0 auto;
+  padding: 1rem;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: utils.toRem(2px) solid variables.$border-color;
+  }
+  &__title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: variables.$text-color;
+  }
+  &__nav {
+    display: flex;
+    gap: 1rem;
+  }
+  &__link {
+    padding: 0.5rem 1rem;
+    background-color: variables.$text-color-hover;
+    color: variables.$bone-color;
+    text-decoration: none;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    &:hover {
+      background-color: variables.$hover-color;
     }
   }
+  &__search {
+    margin-bottom: 2rem;
+  }
+  &__content {
+    background: variables.$bone-color;;
+    border-radius: 0.5rem;
+    box-shadow: 0 utils.toRem(1px) utils.toRem(3px) rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  &__loading {
+    padding: 2rem;
+    text-align: center;
+    color: variables.$text-page-color;
+    &-more {
+      padding: 2rem;
+      text-align: center;
+      color: variables.$text-page-color;
+    }
+  }
+  &__empty {
+    padding: 2rem;
+    text-align: center;
+    color: variables.$text-page-color;
+  }
+  &__sentinel {
+    height: utils.toRem(1px);
+  }
+}
 </style>

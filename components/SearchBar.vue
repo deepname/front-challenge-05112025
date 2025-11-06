@@ -15,25 +15,28 @@ const model = defineModel<string>()
 
 <style scoped lang="scss">
 @use "~/assets/variables";
-  
-.search-bar {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-}
-.search-bar__input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  border: 2px solid variables.$border-color;
-  border-radius: 0.5rem;
-  outline: none;
-  transition: border-color 0.2s;
-  &:focus {
-    border-color: variables.$text-color-hover;
+@use "~/assets/utils";
+
+.search {
+  &-bar {
+    width: 100%;
+    max-width: utils.toRem(600px);
+    margin: 0 auto;
   }
-  &::placeholder {
-    color: variables.$text-placeholder-color;
+  &-bar__input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 2px solid variables.$border-color;
+    border-radius: 0.5rem;
+    outline: none;
+    transition: border-color 0.2s;
+    &:focus {
+      border-color: variables.$text-color-hover;
+    }
+    &::placeholder {
+      color: variables.$text-placeholder-color;
+    }
   }
-}
+}  
 </style>

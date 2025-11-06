@@ -26,12 +26,14 @@ function handleToggle() {
 </script>
 
 <style scoped lang="scss">
+@use "~/assets/variables";
+@use "~/assets/utils";
 
-
-  .favorite-button {
+.favorite {
+  &-button {
     padding: 0.25rem 0.5rem;
     background: transparent;
-    border: 1px solid variables.$border-color;
+    border: utils.toRem(1px) solid variables.$border-color;
     border-radius: 0.375rem;
     cursor: pointer;
     transition: all 0.2s;
@@ -39,13 +41,14 @@ function handleToggle() {
       background-color: variables.$background-color;
       border-color: variables.$favorite-border-color_1;
     }
+    &--active {
+      background-color: variables.$background-color;
+      border-color: variables.$favorite-border-color_2;
+    }
+    &__icon {
+      font-size: 1.25rem;
+      color: variables.$favorite-border-color_2;
+    }
   }
-  .favorite-button--active {
-    background-color: variables.$background-color;
-    border-color: variables.$favorite-border-color_2;
-  }
-  .favorite-button__icon {
-    font-size: 1.25rem;
-    color: variables.$favorite-border-color_2;
-  }
+}
 </style>
