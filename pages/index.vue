@@ -74,12 +74,7 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
-  $color_1: #111827;
-  $color_2: white;
-  $color_3: #6b7280;
-  $background-color_1: #2563eb;
-  $background-color_2: #1d4ed8;
-  $border-color_1: #e5e7eb;
+@use "~/assets/variables";
 
   .page {
     max-width: 1200px;
@@ -91,13 +86,13 @@ onMounted(async () => {
       align-items: center;
       margin-bottom: 2rem;
       padding-bottom: 1rem;
-      border-bottom: 2px solid $border-color_1;
+      border-bottom: 2px solid variables.$border-color;
     }
     &__title {
       margin: 0;
       font-size: 2rem;
       font-weight: 700;
-      color: $color_1;
+      color: variables.$text-color;
     }
     &__nav {
       display: flex;
@@ -105,21 +100,21 @@ onMounted(async () => {
     }
     &__link {
       padding: 0.5rem 1rem;
-      background-color: $background-color_1;
-      color: $color_2;
+      background-color: variables.$text-color-hover;
+      color: variables.$bone-color;
       text-decoration: none;
       border-radius: 0.375rem;
       font-weight: 500;
       transition: background-color 0.2s;
       &:hover {
-        background-color: $background-color_2;
+        background-color: variables.$hover-color;
       }
     }
     &__search {
       margin-bottom: 2rem;
     }
     &__content {
-      background: white;
+      background: variables.$bone-color;;
       border-radius: 0.5rem;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       overflow: hidden;
@@ -127,17 +122,17 @@ onMounted(async () => {
     &__loading {
       padding: 2rem;
       text-align: center;
-      color: $color_3;
+      color: variables.$text-page-color;
       &-more {
         padding: 2rem;
         text-align: center;
-        color: $color_3;
+        color: variables.$text-page-color;
       }
     }
     &__empty {
       padding: 2rem;
       text-align: center;
-      color: $color_3;
+      color: variables.$text-page-color;
     }
     &__sentinel {
       height: 1px;

@@ -14,28 +14,26 @@ const model = defineModel<string>()
 </script>
 
 <style scoped lang="scss">
-  $color_1: #9ca3af;
-  $border-color_1: #2563eb;
-  $border-color_2: #e5e7eb;
+@use "~/assets/variables";
   
-  .search-bar {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
+.search-bar {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.search-bar__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid variables.$border-color;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: border-color 0.2s;
+  &:focus {
+    border-color: variables.$text-color-hover;
   }
-  .search-bar__input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    border: 2px solid $border-color_2;
-    border-radius: 0.5rem;
-    outline: none;
-    transition: border-color 0.2s;
-    &:focus {
-      border-color: $border-color_1;
-    }
-    &::placeholder {
-      color: $color_1;
-    }
+  &::placeholder {
+    color: variables.$text-placeholder-color;
   }
+}
 </style>

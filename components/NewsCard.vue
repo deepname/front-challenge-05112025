@@ -30,14 +30,14 @@ defineProps<{
 </script>
 
 <style scoped lang="scss">
-@use "~/app/assets/variables";
+@use "~/assets/variables";
 
 .news-card {
   padding: 1rem;
-  border-bottom: 1px solid variables.$border-color_1;
+  border-bottom: 1px solid variables.$border-color;
   transition: background-color 0.2s;
   &:hover {
-    background-color: variables.$background-color_1;
+    background-color: variables.$news-card-background;
   }
   &__header {
     display: flex;
@@ -53,10 +53,10 @@ defineProps<{
     line-height: 1.4;
     flex: 1;
     a {
-      color: variables.$color_1;
+      color: variables.$text-color;
       text-decoration: none;
       &:hover {
-        color: variables.$color_2;
+        color: variables.$text-color-hover;
       }
     }
   }
@@ -64,10 +64,10 @@ defineProps<{
     display: flex;
     gap: 0.5rem;
     font-size: 0.875rem;
-    color: variables.$color_3;
+    color: variables.$text-info-color;
   }
   &__separator {
-    color: variables.$color_4;
+    color: variables.$separator;
   }
 }
 
