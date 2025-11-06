@@ -10,15 +10,16 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.5.1",
-    "@vueuse/core": "^10.6.2",
-    "eslint": "^9.39.1",
-    "nuxt": "^4.2.0",
-    "pinia": "^2.1.7"
+    "nuxt": "4.2.0",
+    "@nuxt/eslint": "1.10.0",
+    "@vueuse/core": "10.6.2",
+    "eslint": "9.39.1",
+    "pinia": "2.1.7",
+    "@pinia/nuxt": "0.5.1"
   },
   "devDependencies": {
-    "@types/node": "^20.11.30",
-    "sass-embedded": "^1.93.3",
-    "typescript": "^5.4.0"
+    "@types/node": "20.11.30",
+    "sass-embedded": "1.93.3",
+    "typescript": "5.4.0"
   }
 }
