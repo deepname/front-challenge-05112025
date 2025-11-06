@@ -1,0 +1,23 @@
+{
+  "name": "front-challenge",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "nuxt": "^4.2.0",
+    "@vueuse/core": "^10.6.2",
+    "@pinia/nuxt": "^0.5.1",
+    "pinia": "^2.1.7",
+    "eslint": "^9.39.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.0"
+  }
+}
