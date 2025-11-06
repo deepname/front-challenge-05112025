@@ -30,49 +30,45 @@ defineProps<{
 </script>
 
 <style scoped lang="scss">
-  $color_1: #111827;
-  $color_2: #2563eb;
-  $color_3: #6b7280;
-  $color_4: #d1d5db;
-  $background-color_1: #f9fafb;
-  $border-color_1: #e5e7eb;
+@use "~/app/assets/variables";
 
-  .news-card {
-    padding: 1rem;
-    border-bottom: 1px solid $border-color_1;
-    transition: background-color 0.2s;
-    &:hover {
-      background-color: $background-color_1;
-    }
-    &__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    &__title {
-      margin: 0;
-      font-size: 1.125rem;
-      font-weight: 600;
-      line-height: 1.4;
-      flex: 1;
-      a {
-        color: $color_1;
-        text-decoration: none;
-        &:hover {
-          color: $color_2;
-        }
+.news-card {
+  padding: 1rem;
+  border-bottom: 1px solid variables.$border-color_1;
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: variables.$background-color_1;
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  &__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+    flex: 1;
+    a {
+      color: variables.$color_1;
+      text-decoration: none;
+      &:hover {
+        color: variables.$color_2;
       }
     }
-    &__meta {
-      display: flex;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      color: $color_3;
-    }
-    &__separator {
-      color: $color_4;
-    }
   }
+  &__meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: variables.$color_3;
+  }
+  &__separator {
+    color: variables.$color_4;
+  }
+}
+
 </style>
