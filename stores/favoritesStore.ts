@@ -1,19 +1,19 @@
-import { defineStore } from 'pinia'
-import type { NewsArticle } from '~/types/news'
+import { defineStore } from 'pinia';
+import type { NewsArticle } from '~/types/news';
 
-const STORAGE_KEY = 'news-favorites'
+const STORAGE_KEY = 'news-favorites';
 
 export const useFavoritesStore = defineStore('favorites', () => {
-  const favorites = ref<NewsArticle[]>([])
+  const favorites = ref<NewsArticle[]>([]);
 
   // Load from localStorage on initialization
-  if (process.client) {
-    const stored = localStorage.getItem(STORAGE_KEY)
+  if (import.meta.client) {
+    const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
-        favorites.value = JSON.parse(stored)
+        favorites.value = JSON.parse(stored);
       } catch (error) {
-        console.error('Failed to parse favorites from localStorage:', error)
+        console.error('Failed to parse favorites from localStorage:', error);
       }
     }
   }
@@ -21,33 +21,33 @@ export const useFavoritesStore = defineStore('favorites', () => {
   // Watch and persist to localStorage
   watch(
     favorites,
-    (newFavorites) => {
-      if (process.client) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(newFavorites))
+    newFavorites => {
+      if (import.meta.client) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(newFavorites));
       }
     },
     { deep: true }
-  )
+  );
 
   function isFavorite(article: NewsArticle): boolean {
-    return favorites.value.some((fav) => fav.url === article.url)
+    return favorites.value.some(fav => fav.url === article.url);
   }
 
   function addFavorite(article: NewsArticle) {
     if (!isFavorite(article)) {
-      favorites.value = [...favorites.value, article]
+      favorites.value = [...favorites.value, article];
     }
   }
 
   function removeFavorite(article: NewsArticle) {
-    favorites.value = favorites.value.filter((fav) => fav.url !== article.url)
+    favorites.value = favorites.value.filter(fav => fav.url !== article.url);
   }
 
   function toggleFavorite(article: NewsArticle) {
     if (isFavorite(article)) {
-      removeFavorite(article)
+      removeFavorite(article);
     } else {
-      addFavorite(article)
+      addFavorite(article);
     }
   }
 
@@ -57,5 +57,5 @@ export const useFavoritesStore = defineStore('favorites', () => {
     addFavorite,
     removeFavorite,
     toggleFavorite,
-  }
-})
+  };
+});

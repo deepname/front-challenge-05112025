@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
-import { ref } from 'vue'
-import AppLayout from './AppLayout.vue'
+import type { Meta, StoryObj } from '@storybook/vue3';
+import { ref } from 'vue';
+import AppLayout from './AppLayout.vue';
 
 const meta = {
   title: 'Templates/AppLayout',
   component: AppLayout,
   tags: ['autodocs'],
-} satisfies Meta<typeof AppLayout>
+} satisfies Meta<typeof AppLayout>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => ({
@@ -28,14 +28,14 @@ export const Default: Story = {
       </AppLayout>
     `,
   }),
-}
+};
 
 export const WithSearch: Story = {
   render: () => ({
     components: { AppLayout },
     setup() {
-      const query = ref('')
-      return { query }
+      const query = ref('');
+      return { query };
     },
     template: `
       <AppLayout>
@@ -60,7 +60,7 @@ export const WithSearch: Story = {
       </AppLayout>
     `,
   }),
-}
+};
 
 export const FullExample: Story = {
   render: () => ({
@@ -97,4 +97,4 @@ export const FullExample: Story = {
       </AppLayout>
     `,
   }),
-}
+};

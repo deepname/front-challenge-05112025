@@ -3,9 +3,7 @@
     <template #header>
       <PageHeader title="News Browser">
         <template #actions>
-          <BaseLink to="/favorites">
-            Favorites ({{ favoritesStore.favorites.length }})
-          </BaseLink>
+          <BaseLink to="/favorites"> Favorites ({{ favoritesStore.favorites.length }}) </BaseLink>
         </template>
       </PageHeader>
     </template>
@@ -18,16 +16,10 @@
       Loading...
     </div>
 
-    <div v-else-if="newsStore.articles.length === 0" class="empty-state">
-      No articles found
-    </div>
+    <div v-else-if="newsStore.articles.length === 0" class="empty-state">No articles found</div>
 
     <div v-else>
-      <ArticleCard
-        v-for="article in newsStore.articles"
-        :key="article.url"
-        :article="article"
-      />
+      <ArticleCard v-for="article in newsStore.articles" :key="article.url" :article="article" />
 
       <div ref="sentinel" class="sentinel" />
 
@@ -39,42 +31,42 @@
 </template>
 
 <script setup lang="ts">
-const newsStore = useNewsStore()
-const favoritesStore = useFavoritesStore()
+const newsStore = useNewsStore();
+const favoritesStore = useFavoritesStore();
 
-const searchQuery = ref('')
+const searchQuery = ref('');
 
 // Sync search query with URL
-useUrlSync('q', searchQuery)
+useUrlSync('q', searchQuery);
 
 // Watch search query and trigger search
-watch(searchQuery, async (newQuery) => {
+watch(searchQuery, async newQuery => {
   if (newQuery) {
-    await newsStore.search(newQuery)
+    await newsStore.search(newQuery);
   } else {
-    newsStore.reset()
-    await newsStore.loadMore()
+    newsStore.reset();
+    await newsStore.loadMore();
   }
-})
+});
 
 // Infinite scroll
 const { sentinel } = useInfiniteScroll(
   computed(() => newsStore.hasMore),
   computed(() => newsStore.isLoading),
   () => newsStore.loadMore()
-)
+);
 
 // Initial load
 onMounted(async () => {
   if (newsStore.articles.length === 0 && !searchQuery.value) {
-    await newsStore.loadMore()
+    await newsStore.loadMore();
   }
-})
+});
 </script>
 
 <style scoped lang="scss">
-@use "~/assets/variables";
-@use "~/assets/utils";
+@use '~/assets/variables';
+@use '~/assets/utils';
 
 .loading-state,
 .empty-state,

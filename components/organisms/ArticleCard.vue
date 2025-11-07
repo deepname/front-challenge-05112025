@@ -8,7 +8,7 @@
       </h2>
       <FavoriteToggle :article="article" />
     </div>
-    
+
     <div class="article-card__meta">
       <span class="article-card__score">{{ article.score }} points</span>
       <span class="article-card__separator">•</span>
@@ -22,17 +22,17 @@
 </template>
 
 <script setup lang="ts">
-import FavoriteToggle from '../molecules/FavoriteToggle.vue'
-import type { NewsArticle } from '~/types/news'
+import FavoriteToggle from '../molecules/FavoriteToggle.vue';
+import type { NewsArticle } from '~/types/news';
 
 defineProps<{
-  article: NewsArticle
-}>()
+  article: NewsArticle;
+}>();
 </script>
 
 <style scoped lang="scss">
-@use "~/assets/variables";
-@use "~/assets/utils";
+@use '~/assets/variables';
+@use '~/assets/utils';
 
 .article-card {
   padding: 1rem;

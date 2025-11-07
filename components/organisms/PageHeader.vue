@@ -12,17 +12,17 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    title?: string
+    title?: string;
   }>(),
   {
     title: '',
   }
-)
+);
 </script>
 
 <style scoped lang="scss">
-@use "~/assets/variables";
-@use "~/assets/utils";
+@use '~/assets/variables';
+@use '~/assets/utils';
 
 .page-header {
   display: flex;

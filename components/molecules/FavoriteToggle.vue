@@ -10,25 +10,25 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import BaseButton from '../atoms/BaseButton.vue'
-import type { NewsArticle } from '~/types/news'
+import { computed } from 'vue';
+import BaseButton from '../atoms/BaseButton.vue';
+import type { NewsArticle } from '~/types/news';
 
 const props = defineProps<{
-  article: NewsArticle
-}>()
+  article: NewsArticle;
+}>();
 
-const favoritesStore = useFavoritesStore()
+const favoritesStore = useFavoritesStore();
 
-const isFav = computed(() => favoritesStore.isFavorite(props.article))
+const isFav = computed(() => favoritesStore.isFavorite(props.article));
 
 function handleToggle() {
-  favoritesStore.toggleFavorite(props.article)
+  favoritesStore.toggleFavorite(props.article);
 }
 </script>
 
 <style scoped lang="scss">
-@use "~/assets/variables";
+@use '~/assets/variables';
 
 .favorite-toggle {
   &--active {

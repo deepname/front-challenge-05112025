@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
-import type { NewsArticle } from '~/types/news'
-import { computed, defineComponent, h } from 'vue'
-import FavoriteToggle from './FavoriteToggle.vue'
+import type { Meta, StoryObj } from '@storybook/vue3';
+import type { NewsArticle } from '~/types/news';
+import { computed, defineComponent, h } from 'vue';
+import FavoriteToggle from './FavoriteToggle.vue';
 
 const articleProps = {
   title: { type: String, required: true },
@@ -10,7 +10,7 @@ const articleProps = {
   user: { type: String, required: true },
   age: { type: String, required: true },
   comments: { type: Number, required: true },
-} as const
+} as const;
 
 const FavoriteTogglePreview = defineComponent({
   name: 'FavoriteTogglePreview',
@@ -23,23 +23,25 @@ const FavoriteTogglePreview = defineComponent({
       user: props.user,
       age: props.age,
       comments: props.comments,
-    }))
+    }));
 
-    return () => h(FavoriteToggle, { article: article.value })
+    return () => h(FavoriteToggle, { article: article.value });
   },
-})
+});
 
 type FavoritesStore = {
-  addFavorite(article: NewsArticle): void
-  removeFavorite(article: NewsArticle): void
-  isFavorite(article: NewsArticle): boolean
-}
+  addFavorite(article: NewsArticle): void;
+  removeFavorite(article: NewsArticle): void;
+  isFavorite(article: NewsArticle): boolean;
+};
 
 function getFavoritesStore(): FavoritesStore | undefined {
-  const getter = (globalThis as typeof globalThis & {
-    useFavoritesStore?: () => FavoritesStore
-  }).useFavoritesStore
-  return getter?.()
+  const getter = (
+    globalThis as typeof globalThis & {
+      useFavoritesStore?: () => FavoritesStore;
+    }
+  ).useFavoritesStore;
+  return getter?.();
 }
 
 const meta: Meta<typeof FavoriteTogglePreview> = {
@@ -62,24 +64,24 @@ const meta: Meta<typeof FavoriteTogglePreview> = {
     age: '2 hours ago',
     comments: 42,
   },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof FavoriteTogglePreview>
+export default meta;
+type Story = StoryObj<typeof FavoriteTogglePreview>;
 
-export const NotFavorited: Story = {}
+export const NotFavorited: Story = {};
 
 export const Favorited: Story = {
   play: async ({ args }) => {
-    const store = getFavoritesStore()
+    const store = getFavoritesStore();
     if (store) {
-      store.addFavorite(args as NewsArticle)
+      store.addFavorite(args as NewsArticle);
     }
   },
-}
+};
 
 export const Interactive: Story = {
-  render: (args) => ({
+  render: args => ({
     components: { FavoriteTogglePreview },
     setup: () => ({ args }),
     template: `
@@ -89,4 +91,4 @@ export const Interactive: Story = {
       </div>
     `,
   }),
-}
+};

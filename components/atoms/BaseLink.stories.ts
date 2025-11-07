@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
-import BaseLink from './BaseLink.vue'
+import type { Meta, StoryObj } from '@storybook/vue3';
+import BaseLink from './BaseLink.vue';
 
 const meta = {
   title: 'Atoms/BaseLink',
@@ -15,10 +15,10 @@ const meta = {
       options: ['sm', 'md', 'lg'],
     },
   },
-} satisfies Meta<typeof BaseLink>
+} satisfies Meta<typeof BaseLink>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
@@ -26,14 +26,14 @@ export const Primary: Story = {
     variant: 'primary',
     size: 'md',
   },
-  render: (args) => ({
+  render: args => ({
     components: { BaseLink },
     setup() {
-      return { args }
+      return { args };
     },
     template: '<BaseLink v-bind="args">Primary Link</BaseLink>',
   }),
-}
+};
 
 export const Secondary: Story = {
   args: {
@@ -41,14 +41,14 @@ export const Secondary: Story = {
     variant: 'secondary',
     size: 'md',
   },
-  render: (args) => ({
+  render: args => ({
     components: { BaseLink },
     setup() {
-      return { args }
+      return { args };
     },
     template: '<BaseLink v-bind="args">Secondary Link</BaseLink>',
   }),
-}
+};
 
 export const Ghost: Story = {
   args: {
@@ -56,11 +56,11 @@ export const Ghost: Story = {
     variant: 'ghost',
     size: 'md',
   },
-  render: (args) => ({
+  render: args => ({
     components: { BaseLink },
     setup() {
-      return { args }
+      return { args };
     },
     template: '<BaseLink v-bind="args">Ghost Link</BaseLink>',
   }),
-}
+};

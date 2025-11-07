@@ -1,38 +1,31 @@
 <template>
-  <NuxtLink
-    :to="to"
-    class="base-link"
-    :class="linkClasses"
-  >
+  <NuxtLink :to="to" class="base-link" :class="linkClasses">
     <slot />
   </NuxtLink>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import type { RouteLocationRaw } from 'vue-router'
+import { computed } from 'vue';
+import type { RouteLocationRaw } from 'vue-router';
 
 const props = withDefaults(
   defineProps<{
-    to: RouteLocationRaw
-    variant?: 'primary' | 'secondary' | 'ghost'
-    size?: 'sm' | 'md' | 'lg'
+    to: RouteLocationRaw;
+    variant?: 'primary' | 'secondary' | 'ghost';
+    size?: 'sm' | 'md' | 'lg';
   }>(),
   {
     variant: 'primary',
     size: 'md',
   }
-)
+);
 
-const linkClasses = computed(() => [
-  `base-link--${props.variant}`,
-  `base-link--${props.size}`,
-])
+const linkClasses = computed(() => [`base-link--${props.variant}`, `base-link--${props.size}`]);
 </script>
 
 <style scoped lang="scss">
-@use "~/assets/variables";
-@use "~/assets/utils";
+@use '~/assets/variables';
+@use '~/assets/utils';
 
 .base-link {
   display: inline-flex;

@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
-import BaseInput from './BaseInput.vue'
+import type { Meta, StoryObj } from '@storybook/vue3';
+import BaseInput from './BaseInput.vue';
 
 const meta = {
   title: 'Atoms/BaseInput',
@@ -18,17 +18,17 @@ const meta = {
       control: 'text',
     },
   },
-} satisfies Meta<typeof BaseInput>
+} satisfies Meta<typeof BaseInput>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
     placeholder: 'Enter text...',
     size: 'md',
   },
-}
+};
 
 export const Search: Story = {
   args: {
@@ -36,18 +36,18 @@ export const Search: Story = {
     placeholder: 'Search...',
     size: 'lg',
   },
-}
+};
 
 export const Small: Story = {
   args: {
     placeholder: 'Small input',
     size: 'sm',
   },
-}
+};
 
 export const Large: Story = {
   args: {
     placeholder: 'Large input',
     size: 'lg',
   },
-}
+};

@@ -3,10 +3,7 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
-  modules: [
-    '@pinia/nuxt',
-    '@nuxt/eslint',
-  ],
+  modules: ['@pinia/nuxt', '@nuxt/eslint'],
   components: [
     {
       path: '~/components',
@@ -28,15 +25,13 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'News Browser',
-      meta: [
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      ],
+      meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
     },
   },
   nitro: {
     routeRules: {
       'api/*': { proxy: 'http://localhost:4000/*' },
-      'api/search?text=*': { proxy: 'http://localhost:4000/search?text=*' } 
-    }
+      'api/search?text=*': { proxy: 'http://localhost:4000/search?text=*' },
+    },
   },
-})
+});

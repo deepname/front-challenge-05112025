@@ -1,7 +1,7 @@
 <template>
   <div class="app-layout">
     <slot name="header" />
-    
+
     <div v-if="$slots.search" class="app-layout__search">
       <slot name="search" />
     </div>
@@ -13,8 +13,8 @@
 </template>
 
 <style scoped lang="scss">
-@use "~/assets/variables";
-@use "~/assets/utils";
+@use '~/assets/variables';
+@use '~/assets/utils';
 
 .app-layout {
   max-width: utils.toRem(1200px);

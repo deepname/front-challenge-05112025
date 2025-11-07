@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta = {
   title: 'Design System/Design Tokens',
   tags: ['autodocs'],
-} satisfies Meta
+} satisfies Meta;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Colors: Story = {
   render: () => ({
@@ -119,7 +119,7 @@ export const Colors: Story = {
       </div>
     `,
   }),
-}
+};
 
 export const Typography: Story = {
   render: () => ({
@@ -163,7 +163,7 @@ export const Typography: Story = {
       </div>
     `,
   }),
-}
+};
 
 export const Spacing: Story = {
   render: () => ({
@@ -217,4 +217,4 @@ export const Spacing: Story = {
       </div>
     `,
   }),
-}
+};

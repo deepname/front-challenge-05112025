@@ -1,7 +1,7 @@
-import type { StorybookConfig } from '@storybook/vue3-vite'
-import { mergeConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import path from 'path'
+import type { StorybookConfig } from '@storybook/vue3-vite';
+import { mergeConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import path from 'path';
 
 const config: StorybookConfig = {
   stories: ['../components/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -26,8 +26,8 @@ const config: StorybookConfig = {
           '@': path.resolve(__dirname, '..'),
         },
       },
-    })
+    });
   },
-}
+};
 
-export default config
+export default config;

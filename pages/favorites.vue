@@ -3,9 +3,7 @@
     <template #header>
       <PageHeader title="Favorites">
         <template #actions>
-          <BaseLink to="/" variant="secondary">
-            Back to News
-          </BaseLink>
+          <BaseLink to="/" variant="secondary"> Back to News </BaseLink>
         </template>
       </PageHeader>
     </template>
@@ -25,11 +23,11 @@
 </template>
 
 <script setup lang="ts">
-const favoritesStore = useFavoritesStore()
+const favoritesStore = useFavoritesStore();
 </script>
 
 <style scoped lang="scss">
-@use "~/assets/variables";
+@use '~/assets/variables';
 
 .empty-state {
   padding: 4rem 2rem;

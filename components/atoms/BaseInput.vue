@@ -5,29 +5,29 @@
     :placeholder="placeholder"
     class="base-input"
     :class="`base-input--${size}`"
-  >
+  />
 </template>
 
 <script setup lang="ts">
-const model = defineModel<string>()
+const model = defineModel<string>();
 
 withDefaults(
   defineProps<{
-    type?: string
-    size?: 'sm' | 'md' | 'lg'
-    placeholder?: string
+    type?: string;
+    size?: 'sm' | 'md' | 'lg';
+    placeholder?: string;
   }>(),
   {
     type: 'text',
     size: 'md',
     placeholder: '',
   }
-)
+);
 </script>
 
 <style scoped lang="scss">
-@use "~/assets/variables";
-@use "~/assets/utils";
+@use '~/assets/variables';
+@use '~/assets/utils';
 
 .base-input {
   width: 100%;

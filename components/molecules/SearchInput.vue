@@ -11,14 +11,14 @@
 </template>
 
 <script setup lang="ts">
-import BaseInput from '../atoms/BaseInput.vue'
+import BaseInput from '../atoms/BaseInput.vue';
 
-const model = defineModel<string>()
+const model = defineModel<string>();
 </script>
 
 <style scoped lang="scss">
-@use "~/assets/variables";
-@use "~/assets/utils";
+@use '~/assets/variables';
+@use '~/assets/utils';
 
 .search {
   &-input {

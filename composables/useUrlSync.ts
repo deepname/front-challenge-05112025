@@ -1,31 +1,33 @@
 export function useUrlSync(key: string, state: Ref<string>) {
-  const route = useRoute()
-  const router = useRouter()
+  const route = useRoute();
+  const router = useRouter();
 
   // Sync from URL to state on mount
   onMounted(() => {
-    const urlValue = route.query[key]
+    const urlValue = route.query[key];
     if (typeof urlValue === 'string') {
-      state.value = urlValue
+      state.value = urlValue;
     }
-  })
+  });
 
   // Sync from state to URL on change
-  watch(state, async (newValue) => {
-    await nextTick()
-    
-    const query = { ...route.query }
-    
+  watch(state, async newValue => {
+    await nextTick();
+
+    const query = { ...route.query };
+
     if (newValue) {
-      query[key] = newValue
+      query[key] = newValue;
     } else {
-      delete query[key]
+      // Create new object without the key instead of using delete
+      const { [key]: deleted, ...rest } = query;
+      Object.assign(query, rest);
     }
 
-    router.replace({ query })
-  })
+    router.replace({ query });
+  });
 
   return {
     state,
-  }
+  };
 }

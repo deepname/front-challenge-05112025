@@ -1,47 +1,42 @@
 <template>
-  <button
-    :type="type"
-    class="base-button"
-    :class="buttonClasses"
-    @click="handleClick"
-  >
+  <button :type="type" class="base-button" :class="buttonClasses" @click="handleClick">
     <slot />
   </button>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
 
 const props = withDefaults(
   defineProps<{
-    variant?: 'primary' | 'secondary' | 'ghost'
-    size?: 'sm' | 'md' | 'lg'
-    type?: 'button' | 'submit' | 'reset'
+    variant?: 'primary' | 'secondary' | 'ghost';
+    size?: 'sm' | 'md' | 'lg';
+    type?: 'button' | 'submit' | 'reset';
   }>(),
   {
     variant: 'secondary',
     size: 'md',
     type: 'button',
   }
-)
+);
 
 const emit = defineEmits<{
-  click: [event: MouseEvent]
-}>()
+  click: [event: MouseEvent];
+}>();
 
 const buttonClasses = computed(() => [
   `base-button--${props.variant}`,
   `base-button--${props.size}`,
-])
+]);
 
 function handleClick(event: MouseEvent) {
-  emit('click', event)
+  emit('click', event);
 }
 </script>
 
 <style scoped lang="scss">
-@use "~/assets/variables";
-@use "~/assets/utils";
+@use '~/assets/variables';
+@use '~/assets/utils';
 
 .base-button {
   display: inline-flex;
