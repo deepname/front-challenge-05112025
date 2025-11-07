@@ -12,8 +12,8 @@
     "build-storybook": "storybook build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
@@ -32,6 +32,7 @@
     "@storybook/test": "8.0.0",
     "@storybook/vue3": "8.0.0",
     "@storybook/vue3-vite": "8.6.14",
+    "@types/eslint-config-prettier": "^6.11.3",
     "@types/node": "20.11.30",
     "@vitejs/plugin-vue": "5.2.4",
     "eslint-config-prettier": "9.1.2",
