@@ -1,12 +1,35 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { computed, defineComponent, h } from 'vue'
 import type { NewsArticle } from '~/types/news'
 import ArticleCard from './ArticleCard.vue'
 
-type ArticleStoryArgs = NewsArticle
+const ArticleCardPreview = defineComponent({
+  name: 'ArticleCardPreview',
+  props: {
+    title: { type: String, required: true },
+    url: { type: String, required: true },
+    score: { type: Number, required: true },
+    user: { type: String, required: true },
+    age: { type: String, required: true },
+    comments: { type: Number, required: true },
+  },
+  setup(props) {
+    const article = computed<NewsArticle>(() => ({
+      title: props.title,
+      url: props.url,
+      score: props.score,
+      user: props.user,
+      age: props.age,
+      comments: props.comments,
+    }))
+
+    return () => h(ArticleCard, { article: article.value })
+  },
+})
 
 const meta = {
   title: 'Organisms/ArticleCard',
-  component: ArticleCard,
+  component: ArticleCardPreview,
   tags: ['autodocs'],
   argTypes: {
     title: { control: 'text', description: 'Article title' },
@@ -24,12 +47,7 @@ const meta = {
     age: '2 hours ago',
     comments: 42,
   },
-  render: (args: ArticleStoryArgs) => ({
-    components: { ArticleCard },
-    setup: () => ({ article: args }),
-    template: '<ArticleCard :article="article" />',
-  }),
-} satisfies Meta<ArticleStoryArgs>
+} satisfies Meta<typeof ArticleCardPreview>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -39,6 +57,7 @@ export const Default: Story = {}
 export const LongTitle: Story = {
   args: {
     title: 'This is a very long article title that demonstrates how the card handles longer content and wraps appropriately',
+    url: 'https://example.com',
     score: 250,
     user: 'janedoe',
     age: '5 hours ago',
@@ -49,6 +68,7 @@ export const LongTitle: Story = {
 export const HighScore: Story = {
   args: {
     title: 'Trending Article with High Engagement',
+    url: 'https://example.com',
     score: 1500,
     user: 'topcontributor',
     age: '1 hour ago',
