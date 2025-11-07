@@ -11,6 +11,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import BaseButton from '../atoms/BaseButton.vue'
 import type { NewsArticle } from '~/types/news'
 
 const props = defineProps<{

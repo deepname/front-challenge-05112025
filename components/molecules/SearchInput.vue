@@ -10,6 +10,8 @@
 </template>
 
 <script setup lang="ts">
+import BaseInput from '../atoms/BaseInput.vue'
+
 const model = defineModel<string>()
 </script>
 

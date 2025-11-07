@@ -22,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import FavoriteToggle from '../molecules/FavoriteToggle.vue'
 import type { NewsArticle } from '~/types/news'
 
 defineProps<{
