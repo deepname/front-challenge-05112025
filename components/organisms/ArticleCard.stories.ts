@@ -6,21 +6,36 @@ const meta = {
   component: ArticleCard,
   tags: ['autodocs'],
   argTypes: {
-    article: {
-      description: 'News article object',
-      control: { type: 'object' },
-    },
+    title: { control: 'text', description: 'Article title' },
+    url: { control: 'text', description: 'Article URL' },
+    score: { control: 'number', description: 'Article score' },
+    user: { control: 'text', description: 'Article author' },
+    age: { control: 'text', description: 'Article age' },
+    comments: { control: 'number', description: 'Number of comments' },
   },
   args: {
-    article: {
-      title: 'Example News Article Title',
-      url: 'https://example.com',
-      score: 150,
-      user: 'johndoe',
-      age: '2 hours ago',
-      comments: 42,
-    },
+    title: 'Example News Article Title',
+    url: 'https://example.com',
+    score: 150,
+    user: 'johndoe',
+    age: '2 hours ago',
+    comments: 42,
   },
+  render: (args) => ({
+    components: { ArticleCard },
+    setup() {
+      const article = {
+        title: args.title,
+        url: args.url,
+        score: args.score,
+        user: args.user,
+        age: args.age,
+        comments: args.comments,
+      }
+      return { article }
+    },
+    template: '<ArticleCard :article="article" />',
+  }),
 } satisfies Meta<typeof ArticleCard>
 
 export default meta
@@ -30,26 +45,20 @@ export const Default: Story = {}
 
 export const LongTitle: Story = {
   args: {
-    article: {
-      title: 'This is a very long article title that demonstrates how the card handles longer content and wraps appropriately',
-      url: 'https://example.com',
-      score: 250,
-      user: 'janedoe',
-      age: '5 hours ago',
-      comments: 128,
-    },
+    title: 'This is a very long article title that demonstrates how the card handles longer content and wraps appropriately',
+    score: 250,
+    user: 'janedoe',
+    age: '5 hours ago',
+    comments: 128,
   },
 }
 
 export const HighScore: Story = {
   args: {
-    article: {
-      title: 'Trending Article with High Engagement',
-      url: 'https://example.com',
-      score: 1500,
-      user: 'topcontributor',
-      age: '1 hour ago',
-      comments: 500,
-    },
+    title: 'Trending Article with High Engagement',
+    score: 1500,
+    user: 'topcontributor',
+    age: '1 hour ago',
+    comments: 500,
   },
 }
