@@ -1,0 +1,10 @@
+.nuxt/
+.nuxt-storybook/
+dist/
+node_modules/
+coverage/
+*.log
+.vscode/
+.idea/
+.DS_Store
+storybook-static/

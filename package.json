@@ -9,15 +9,20 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "nuxt typecheck"
   },
   "dependencies": {
-    "nuxt": "4.2.0",
     "@nuxt/eslint": "1.10.0",
+    "@pinia/nuxt": "0.11.3",
     "@vueuse/core": "14.0.0",
     "eslint": "9.39.1",
-    "pinia": "3.0.4",
-    "@pinia/nuxt": "0.11.3"
+    "nuxt": "4.2.0",
+    "pinia": "3.0.4"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "8.0.0",
@@ -29,6 +34,9 @@
     "@storybook/vue3-vite": "8.0.0",
     "@types/node": "20.11.30",
     "@vitejs/plugin-vue": "5.0.0",
+    "eslint-config-prettier": "^9.1.2",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.6.2",
     "sass-embedded": "1.93.3",
     "storybook": "8.0.0",
     "typescript": "5.9.3"

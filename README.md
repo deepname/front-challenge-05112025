@@ -40,6 +40,39 @@ yarn dev
 bun run dev
 ```
 
+### Linting & Formatting
+
+Check and fix code style:
+
+```bash
+# Check linting
+npm run lint
+
+# Auto-fix linting issues
+npm run lint:fix
+
+# Check formatting
+npm run format:check
+
+# Auto-format code
+npm run format
+
+# Type checking
+npm run typecheck
+```
+
+### Storybook
+
+Run Storybook for component development:
+
+```bash
+# Start Storybook
+npm run storybook
+
+# Build Storybook
+npm run build-storybook
+```
+
 ### Production
 
 Build the application for production:
