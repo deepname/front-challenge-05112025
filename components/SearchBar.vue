@@ -27,7 +27,7 @@ const model = defineModel<string>()
     width: 100%;
     padding: 0.75rem 1rem;
     font-size: 1rem;
-    border: 2px solid variables.$border-color;
+    border: utils.toRem(2px) solid variables.$border-color;
     border-radius: 0.5rem;
     outline: none;
     transition: border-color 0.2s;
