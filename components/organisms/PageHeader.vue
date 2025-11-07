@@ -30,13 +30,13 @@ withDefaults(
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: utils.toRem(2px) solid variables.$border-color;
+  border-bottom: utils.toRem(2px) solid variables.$iota;
 
   &__title {
     margin: 0;
     font-size: 2rem;
     font-weight: 700;
-    color: variables.$text-color;
+    color: variables.$alpha;
   }
 
   &__actions {

@@ -65,33 +65,33 @@ function handleClick(event: MouseEvent) {
   }
 
   &--primary {
-    background-color: variables.$text-color-hover;
-    color: variables.$bone-color;
-    border-color: variables.$text-color-hover;
+    background-color: variables.$beta;
+    color: variables.$kappa;
+    border-color: variables.$beta;
 
     &:hover {
-      background-color: variables.$hover-color;
-      border-color: variables.$hover-color;
+      background-color: variables.$gamma;
+      border-color: variables.$gamma;
     }
   }
 
   &--secondary {
     background-color: transparent;
-    color: variables.$text-color;
-    border-color: variables.$border-color;
+    color: variables.$alpha;
+    border-color: variables.$iota;
 
     &:hover {
-      background-color: variables.$background-color;
-      border-color: variables.$text-color-hover;
+      background-color: variables.$lambda;
+      border-color: variables.$beta;
     }
   }
 
   &--ghost {
     background-color: transparent;
-    color: variables.$text-color;
+    color: variables.$alpha;
 
     &:hover {
-      color: variables.$text-color-hover;
+      color: variables.$beta;
     }
   }
 }

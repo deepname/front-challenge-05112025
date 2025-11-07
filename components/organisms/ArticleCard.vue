@@ -36,11 +36,11 @@ defineProps<{
 
 .article-card {
   padding: 1rem;
-  border-bottom: utils.toRem(1px) solid variables.$border-color;
+  border-bottom: utils.toRem(1px) solid variables.$iota;
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: variables.$news-card-background;
+    background-color: variables.$theta;
   }
 
   &__header {
@@ -59,11 +59,11 @@ defineProps<{
     flex: 1;
 
     a {
-      color: variables.$text-color;
+      color: variables.$alpha;
       text-decoration: none;
 
       &:hover {
-        color: variables.$text-color-hover;
+        color: variables.$beta;
       }
     }
   }
@@ -72,11 +72,11 @@ defineProps<{
     display: flex;
     gap: 0.5rem;
     font-size: 0.875rem;
-    color: variables.$text-info-color;
+    color: variables.$epsilon;
   }
 
   &__separator {
-    color: variables.$separator;
+    color: variables.$eta;
   }
 }
 </style>

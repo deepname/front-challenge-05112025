@@ -31,19 +31,19 @@ withDefaults(
 
 .base-input {
   width: 100%;
-  border: utils.toRem(2px) solid variables.$border-color;
+  border: utils.toRem(2px) solid variables.$iota;
   border-radius: 0.5rem;
   outline: none;
   transition: border-color 0.2s ease;
-  background: variables.$bone-color;
-  color: variables.$text-color;
+  background: variables.$kappa;
+  color: variables.$alpha;
 
   &:focus {
-    border-color: variables.$text-color-hover;
+    border-color: variables.$beta;
   }
 
   &::placeholder {
-    color: variables.$text-placeholder-color;
+    color: variables.$delta;
   }
 
   &--sm {

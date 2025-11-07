@@ -53,30 +53,30 @@ const linkClasses = computed(() => [`base-link--${props.variant}`, `base-link--$
   }
 
   &--primary {
-    background-color: variables.$text-color-hover;
-    color: variables.$bone-color;
+    background-color: variables.$beta;
+    color: variables.$kappa;
 
     &:hover {
-      background-color: variables.$hover-color;
+      background-color: variables.$gamma;
     }
   }
 
   &--secondary {
     background-color: transparent;
-    color: variables.$text-color;
-    border: utils.toRem(1px) solid variables.$border-color;
+    color: variables.$alpha;
+    border: utils.toRem(1px) solid variables.$iota;
 
     &:hover {
-      border-color: variables.$text-color-hover;
+      border-color: variables.$beta;
     }
   }
 
   &--ghost {
     background-color: transparent;
-    color: variables.$text-color;
+    color: variables.$alpha;
 
     &:hover {
-      color: variables.$text-color-hover;
+      color: variables.$beta;
     }
   }
 }

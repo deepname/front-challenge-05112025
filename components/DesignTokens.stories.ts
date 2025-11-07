@@ -1,4 +1,68 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import colorVariables from '~/assets/color-variables.json';
+
+// Organize colors by categories
+const colorCategories = {
+  'Text Colors': {
+    alpha: 'Primary text color',
+    delta: 'Placeholder text color',
+    epsilon: 'Info text color',
+    zeta: 'Page text color',
+  },
+  'Interactive Colors': {
+    beta: 'Hover/link color',
+    gamma: 'Active/hover state',
+  },
+  'Background Colors': {
+    kappa: 'Primary background (white)',
+    theta: 'Card background',
+    lambda: 'Accent background',
+  },
+  'Border & Separator Colors': {
+    iota: 'Primary border color',
+    eta: 'Separator color',
+    xi: 'Secondary border color',
+  },
+  'Favorite Colors': {
+    mu: 'Favorite color 1',
+    nu: 'Favorite color 2',
+  },
+};
+
+// Generate HTML for color swatches
+function generateColorSwatches() {
+  let html = '';
+
+  Object.entries(colorCategories).forEach(([categoryName, colors]) => {
+    html += `
+      <section style="margin-bottom: 3rem;">
+        <h2 style="margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600; color: #111827;">${categoryName}</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+    `;
+
+    Object.entries(colors).forEach(([varName, description]) => {
+      const colorValue = colorVariables[varName];
+      if (colorValue) {
+        const isWhite = colorValue.toLowerCase() === 'white';
+        html += `
+          <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
+            <div style="width: 100%; height: 80px; background-color: ${colorValue}; border-radius: 0.375rem; margin-bottom: 0.75rem; ${isWhite ? 'border: 1px solid #e5e7eb;' : ''}"></div>
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">$${varName}</div>
+            <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">${colorValue}</div>
+            <div style="font-size: 0.75rem; color: #9ca3af; margin-top: 0.25rem;">${description}</div>
+          </div>
+        `;
+      }
+    });
+
+    html += `
+        </div>
+      </section>
+    `;
+  });
+
+  return html;
+}
 
 const meta = {
   title: 'Design System/Design Tokens',
@@ -13,109 +77,8 @@ export const Colors: Story = {
     template: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
         <h1 style="margin-bottom: 2rem; font-size: 2rem; font-weight: 700;">Color Palette</h1>
-        
-        <section style="margin-bottom: 3rem;">
-          <h2 style="margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600; color: #111827;">Text Colors</h2>
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: #111827; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$text-color</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">#111827</div>
-            </div>
-            
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: #9ca3af; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$text-placeholder-color</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">#9ca3af</div>
-            </div>
-            
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: #2563eb; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$text-color-hover</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">#2563eb</div>
-            </div>
-            
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: #6b7280; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$text-info-color</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">#6b7280</div>
-            </div>
-            
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: #6b7280; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$text-page-color</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">#6b7280</div>
-            </div>
-          </div>
-        </section>
 
-        <section style="margin-bottom: 3rem;">
-          <h2 style="margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600; color: #111827;">Interactive Colors</h2>
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: #1d4ed8; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$hover-color</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">#1d4ed8</div>
-            </div>
-          </div>
-        </section>
-
-        <section style="margin-bottom: 3rem;">
-          <h2 style="margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600; color: #111827;">Background Colors</h2>
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: white; border: 1px solid #e5e7eb; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$bone-color</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">white</div>
-            </div>
-            
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: #f9fafb; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$news-card-background</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">#f9fafb</div>
-            </div>
-            
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: #fef3c7; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$background-color</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">#fef3c7</div>
-            </div>
-          </div>
-        </section>
-
-        <section style="margin-bottom: 3rem;">
-          <h2 style="margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600; color: #111827;">Border & Separator Colors</h2>
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: #e5e7eb; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$border-color</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">#e5e7eb</div>
-            </div>
-            
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: #d1d5db; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$separator</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">#d1d5db</div>
-            </div>
-          </div>
-        </section>
-
-        <section style="margin-bottom: 3rem;">
-          <h2 style="margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600; color: #111827;">Favorite Colors</h2>
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: #fbbf24; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$favorite-border-color_1</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">#fbbf24</div>
-            </div>
-            
-            <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-              <div style="width: 100%; height: 80px; background-color: #f59e0b; border-radius: 0.375rem; margin-bottom: 0.75rem;"></div>
-              <div style="font-weight: 600; margin-bottom: 0.25rem;">$favorite-border-color_2</div>
-              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">#f59e0b</div>
-            </div>
-          </div>
-        </section>
+        ${generateColorSwatches()}
       </div>
     `,
   }),

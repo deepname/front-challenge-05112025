@@ -26,7 +26,7 @@
   }
 
   &__content {
-    background: variables.$bone-color;
+    background: variables.$kappa;
     border-radius: 0.5rem;
     box-shadow: 0 utils.toRem(1px) utils.toRem(3px) rgba(0, 0, 0, 0.1);
     overflow: hidden;

@@ -2,5 +2,6 @@
 /.nuxt
 /.output
 /storybook
+/storybook-static
 
 .env

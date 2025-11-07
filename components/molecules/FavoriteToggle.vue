@@ -32,13 +32,13 @@ function handleToggle() {
 
 .favorite-toggle {
   &--active {
-    background-color: variables.$background-color;
-    border-color: variables.$favorite-border-color_2;
+    background-color: variables.$lambda;
+    border-color: variables.$nu;
   }
 
   &__icon {
     font-size: 1.25rem;
-    color: variables.$favorite-border-color_2;
+    color: variables.$nu;
   }
 }
 </style>

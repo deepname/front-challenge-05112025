@@ -32,7 +32,7 @@ const favoritesStore = useFavoritesStore();
 .empty-state {
   padding: 4rem 2rem;
   text-align: center;
-  color: variables.$text-page-color;
+  color: variables.$zeta;
   font-size: 1.125rem;
 }
 </style>

@@ -27,17 +27,17 @@ const model = defineModel<string>();
     margin: 0 auto;
 
     &__field {
-      border: utils.toRem(2px) solid variables.$border-color;
+      border: utils.toRem(2px) solid variables.$iota;
       border-radius: 0.5rem;
       outline: none;
       transition: border-color 0.2s;
 
       &:focus {
-        border-color: variables.$text-color-hover;
+        border-color: variables.$beta;
       }
 
       &::placeholder {
-        color: variables.$text-placeholder-color;
+        color: variables.$delta;
       }
     }
   }

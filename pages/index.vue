@@ -73,7 +73,7 @@ onMounted(async () => {
 .loading-more {
   padding: 2rem;
   text-align: center;
-  color: variables.$text-page-color;
+  color: variables.$zeta;
 }
 
 .sentinel {
