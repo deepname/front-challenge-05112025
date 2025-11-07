@@ -5,12 +5,12 @@ const meta = {
   title: 'Organisms/ArticleCard',
   component: ArticleCard,
   tags: ['autodocs'],
-} satisfies Meta<typeof ArticleCard>
-
-export default meta
-type Story = StoryObj<typeof meta>
-
-export const Default: Story = {
+  argTypes: {
+    article: {
+      description: 'News article object',
+      control: { type: 'object' },
+    },
+  },
   args: {
     article: {
       title: 'Example News Article Title',
@@ -21,7 +21,12 @@ export const Default: Story = {
       comments: 42,
     },
   },
-}
+} satisfies Meta<typeof ArticleCard>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {}
 
 export const LongTitle: Story = {
   args: {
