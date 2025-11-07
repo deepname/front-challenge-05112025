@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
+import type { NewsArticle } from '~/types/news'
 import ArticleCard from './ArticleCard.vue'
+
+type ArticleStoryArgs = NewsArticle
 
 const meta = {
   title: 'Organisms/ArticleCard',
@@ -21,22 +24,12 @@ const meta = {
     age: '2 hours ago',
     comments: 42,
   },
-  render: (args) => ({
+  render: (args: ArticleStoryArgs) => ({
     components: { ArticleCard },
-    setup() {
-      const article = {
-        title: args.title,
-        url: args.url,
-        score: args.score,
-        user: args.user,
-        age: args.age,
-        comments: args.comments,
-      }
-      return { article }
-    },
+    setup: () => ({ article: args }),
     template: '<ArticleCard :article="article" />',
   }),
-} satisfies Meta<typeof ArticleCard>
+} satisfies Meta<ArticleStoryArgs>
 
 export default meta
 type Story = StoryObj<typeof meta>
