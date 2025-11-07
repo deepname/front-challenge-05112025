@@ -5,6 +5,7 @@
       type="search"
       size="lg"
       placeholder="Search news..."
+      class="search-input__field"
     />
   </div>
 </template>
@@ -16,11 +17,29 @@ const model = defineModel<string>()
 </script>
 
 <style scoped lang="scss">
+@use "~/assets/variables";
 @use "~/assets/utils";
 
-.search-input {
-  width: 100%;
-  max-width: utils.toRem(600px);
-  margin: 0 auto;
+.search {
+  &-input {
+    width: 100%;
+    max-width: utils.toRem(600px);
+    margin: 0 auto;
+
+    &__field {
+      border: utils.toRem(2px) solid variables.$border-color;
+      border-radius: 0.5rem;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: variables.$text-color-hover;
+      }
+
+      &::placeholder {
+        color: variables.$text-placeholder-color;
+      }
+    }
+  }
 }
 </style>
