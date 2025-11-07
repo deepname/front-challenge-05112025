@@ -10,6 +10,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { NewsArticle } from '~/types/news'
 
 const props = defineProps<{
