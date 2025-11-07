@@ -1,0 +1,43 @@
+<template>
+  <BaseButton
+    variant="secondary"
+    size="sm"
+    :class="{ 'favorite-toggle--active': isFav }"
+    @click="handleToggle"
+  >
+    <span class="favorite-toggle__icon">{{ isFav ? '★' : '☆' }}</span>
+  </BaseButton>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import type { NewsArticle } from '~/types/news'
+
+const props = defineProps<{
+  article: NewsArticle
+}>()
+
+const favoritesStore = useFavoritesStore()
+
+const isFav = computed(() => favoritesStore.isFavorite(props.article))
+
+function handleToggle() {
+  favoritesStore.toggleFavorite(props.article)
+}
+</script>
+
+<style scoped lang="scss">
+@use "~/assets/variables";
+
+.favorite-toggle {
+  &--active {
+    background-color: variables.$background-color;
+    border-color: variables.$favorite-border-color_2;
+  }
+
+  &__icon {
+    font-size: 1.25rem;
+    color: variables.$favorite-border-color_2;
+  }
+}
+</style>
