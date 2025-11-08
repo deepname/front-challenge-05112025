@@ -230,6 +230,18 @@ describe('Index page', () => {
     expect(searchInput.exists()).toBe(true);
   });
 
+  it('syncs searchQuery with URL state when updated via input', async () => {
+    const wrapper = mountIndex();
+
+    const searchInput = wrapper.findComponent({ name: 'SearchInput' });
+    searchInput.vm.$emit('update:modelValue', 'hello world');
+
+    await flushUpdates();
+
+    expect(urlSyncState.value).toBe('hello world');
+    expect(mockNewsStore.search).toHaveBeenCalledWith('hello world');
+  });
+
   it('uses AppLayout wrapper', () => {
     const wrapper = mountIndex();
 
