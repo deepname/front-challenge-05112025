@@ -30,7 +30,7 @@ const colorCategories = {
 };
 
 // Generate HTML for color swatches
-function generateColorSwatches() {
+export function generateColorSwatches() {
   let html = '';
 
   Object.entries(colorCategories).forEach(([categoryName, colors]) => {
