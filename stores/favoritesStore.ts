@@ -1,3 +1,4 @@
+import { ref, watch } from 'vue';
 import { defineStore } from 'pinia';
 import type { NewsArticle } from '~/types/news';
 
@@ -5,9 +6,10 @@ const STORAGE_KEY = 'news-favorites';
 
 export const useFavoritesStore = defineStore('favorites', () => {
   const favorites = ref<NewsArticle[]>([]);
+  const storageAvailable = typeof localStorage !== 'undefined';
 
   // Load from localStorage on initialization
-  if (import.meta.client) {
+  if (storageAvailable) {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
@@ -22,7 +24,7 @@ export const useFavoritesStore = defineStore('favorites', () => {
   watch(
     favorites,
     newFavorites => {
-      if (import.meta.client) {
+      if (storageAvailable) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(newFavorites));
       }
     },

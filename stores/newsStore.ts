@@ -1,5 +1,7 @@
+import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import type { NewsArticle } from '~/types/news';
+import { useNewsApi } from '~/composables/useNewsApi';
 
 export const useNewsStore = defineStore('news', () => {
   const articles = ref<NewsArticle[]>([]);

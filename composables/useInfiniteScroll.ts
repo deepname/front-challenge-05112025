@@ -1,3 +1,5 @@
+import { ref, onMounted, onBeforeUnmount, type Ref } from 'vue';
+
 export function useInfiniteScroll(
   hasMore: Ref<boolean>,
   isLoading: Ref<boolean>,

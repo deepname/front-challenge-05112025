@@ -31,6 +31,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, watch, onMounted } from 'vue';
+import { useNewsStore } from '~/stores/newsStore';
+import { useFavoritesStore } from '~/stores/favoritesStore';
+import { useUrlSync } from '~/composables/useUrlSync';
+import { useInfiniteScroll } from '~/composables/useInfiniteScroll';
+
 const newsStore = useNewsStore();
 const favoritesStore = useFavoritesStore();
 

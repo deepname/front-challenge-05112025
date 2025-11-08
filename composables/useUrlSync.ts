@@ -1,3 +1,6 @@
+import { onMounted, watch, nextTick, type Ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
 export function useUrlSync(key: string, state: Ref<string>) {
   const route = useRoute();
   const router = useRouter();
@@ -18,13 +21,12 @@ export function useUrlSync(key: string, state: Ref<string>) {
 
     if (newValue) {
       query[key] = newValue;
-    } else {
-      // Create new object without the key instead of using delete
-      const { [key]: deleted, ...rest } = query;
-      Object.assign(query, rest);
+      await router.replace({ query });
+      return;
     }
 
-    router.replace({ query });
+    const { [key]: _removed, ...rest } = query;
+    await router.replace({ query: rest });
   });
 
   return {

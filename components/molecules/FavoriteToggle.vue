@@ -13,6 +13,7 @@
 import { computed } from 'vue';
 import BaseButton from '../atoms/BaseButton.vue';
 import type { NewsArticle } from '~/types/news';
+import { useFavoritesStore } from '~/stores/favoritesStore';
 
 const props = defineProps<{
   article: NewsArticle;
