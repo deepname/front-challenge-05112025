@@ -4,5 +4,6 @@
 /storybook
 /storybook-static
 /coverage
+/test-results
 
 .env

@@ -23,6 +23,8 @@ export default defineConfig({
         'node_modules/',
         'types',
         'test/',
+        'test-results/',
+        'tests/',
         'stories/',
         'coverage/',
         'scripts/',
@@ -32,6 +34,7 @@ export default defineConfig({
         '**/*.config.ts',
         '**/*.config.js',
         '**/*.stories.ts',
+        '**/*.spec.ts',
         '**/*.mjs',
       ],
       thresholds: {
