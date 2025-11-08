@@ -3,5 +3,6 @@
 /.output
 /storybook
 /storybook-static
+/coverage
 
 .env
