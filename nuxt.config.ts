@@ -1,3 +1,5 @@
+const apiTarget = process.env.NUXT_PUBLIC_API_URL || 'http://localhost:4000';
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   future: {
@@ -19,7 +21,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiUrl: process.env.NUXT_PUBLIC_API_URL || 'http://localhost:4000',
+      apiUrl: apiTarget,
     },
   },
   app: {
@@ -30,8 +32,8 @@ export default defineNuxtConfig({
   },
   nitro: {
     routeRules: {
-      'api/*': { proxy: 'http://localhost:4000/*' },
-      'api/search?text=*': { proxy: 'http://localhost:4000/search?text=*' },
+      'api/*': { proxy: `${apiTarget}/*` },
+      'api/search?text=*': { proxy: `${apiTarget}/search?text=*` },
     },
   },
 });
