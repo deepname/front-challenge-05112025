@@ -1,6 +1,6 @@
 # 📰 News Browser - Atomic Design Component Library
 
-A modern Vue 3 + Nuxt 4 application featuring an **atomic design component library** and an **infinite scroll news browser** with favorites functionality.
+A modern [Vue 3](https://vuejs.org/) + [Nuxt 4](https://nuxt.com/) application featuring an **atomic design component library** with [Storybook](https://storybook.js.org/) and an **infinite scroll news browser** with favorites functionality.
 
 ## 🎯 Project Overview
 
