@@ -140,6 +140,22 @@ npm run format:fix
 npm run typecheck
 ```
 
+### Testing
+
+```bash
+# Run tests
+npm run test:ut
+
+# Run tests with coverage
+npm run test:ut:coverage
+
+# Run E2E tests
+npm run test:e2e
+
+# Run E2E tests with UI debugging
+npm run test:e2e:ui
+```
+
 ### Build & Deploy
 
 ```bash
