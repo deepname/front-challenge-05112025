@@ -99,6 +99,9 @@ cd front-challenge
 
 # Install dependencies
 npm install
+
+# Install browsers Chromium, Firefox, WebKit(Playwright needs to download the actual browser binaries)
+npx playwright install --with-deps
 ```
 
 ### Development
@@ -155,6 +158,8 @@ npm run test:e2e
 # Run E2E tests with UI debugging
 npm run test:e2e:ui
 ```
+
+**To run the e2e tests, you must have both the backend and the frontend running.**
 
 ### Build & Deploy
 
