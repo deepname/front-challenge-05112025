@@ -67,4 +67,31 @@ test.describe('News Browser E2E', () => {
     await expect(favoriteArticles.first()).toContainText(firstArticleTitle);
     await expect(page.getByRole('heading', { name: 'Favorites' })).toBeVisible();
   });
+
+  test('handles 50 consecutive scrolls without breaking infinite scroll', async ({ page }) => {
+    test.slow();
+
+    await ensureArticlesLoaded(page);
+    await page.waitForTimeout(200);
+
+    for (let i = 0; i < 50; i += 1) {
+      const responsePromise = page.waitForResponse(
+        response => response.url().includes('/api/') && response.request().method() === 'GET',
+        { timeout: 5_000 }
+      );
+
+      await page.evaluate(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+
+      await page.waitForTimeout(300);
+      await responsePromise;
+    }
+
+    const scrollPosition = await page.evaluate(() => window.scrollY);
+    expect(scrollPosition).toBeGreaterThan(0);
+
+    const articlesCount = await page.locator(ARTICLE_CARD_SELECTOR).count();
+    expect(articlesCount).toBeGreaterThan(0);
+  });
 });
