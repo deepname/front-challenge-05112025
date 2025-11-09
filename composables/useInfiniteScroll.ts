@@ -1,4 +1,4 @@
-import { ref, onMounted, onBeforeUnmount, type Ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch, type Ref } from 'vue';
 
 export function useInfiniteScroll(
   hasMore: Ref<boolean>,
@@ -7,6 +7,7 @@ export function useInfiniteScroll(
 ) {
   const sentinel = ref<HTMLElement | null>(null);
   let observer: IntersectionObserver | null = null;
+  let stopWatch: (() => void) | null = null;
 
   const handleIntersect = async (entries: IntersectionObserverEntry[]) => {
     const [entry] = entries;
@@ -16,16 +17,28 @@ export function useInfiniteScroll(
   };
 
   onMounted(() => {
-    if (!sentinel.value) return;
+    stopWatch = watch(
+      () => sentinel.value,
+      newEl => {
+        observer?.disconnect();
+        observer = null;
 
-    observer = new IntersectionObserver(handleIntersect, {
-      rootMargin: '200px',
-    });
+        if (!newEl || typeof IntersectionObserver === 'undefined') {
+          return;
+        }
 
-    observer.observe(sentinel.value);
+        observer = new IntersectionObserver(handleIntersect, {
+          rootMargin: '200px',
+        });
+
+        observer.observe(newEl);
+      },
+      { immediate: true }
+    );
   });
 
   onBeforeUnmount(() => {
+    stopWatch?.();
     observer?.disconnect();
   });
 

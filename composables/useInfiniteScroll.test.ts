@@ -92,8 +92,10 @@ describe('useInfiniteScroll', () => {
     expect(wrapper.vm.sentinel).toBeInstanceOf(HTMLElement);
   });
 
-  it('sets up IntersectionObserver on mount', async () => {
+  it('sets up IntersectionObserver once sentinel attaches', async () => {
     const wrapper = mount(createTestComponent());
+    await nextTick();
+
     await nextTick();
 
     expect(intersectionObserverMock).toHaveBeenCalledTimes(1);
