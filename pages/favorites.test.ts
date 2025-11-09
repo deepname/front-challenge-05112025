@@ -107,7 +107,7 @@ describe('Favorites page', () => {
   it('uses AppLayout wrapper', () => {
     const wrapper = mountFavorites();
 
-    const appLayout = wrapper.getComponent({ name: 'AppLayout' });
+    const appLayout = wrapper.findComponent({ name: 'AppLayout' });
     expect(appLayout.exists()).toBe(true);
   });
 });

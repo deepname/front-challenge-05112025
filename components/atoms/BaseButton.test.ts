@@ -63,6 +63,12 @@ describe('BaseButton', () => {
 
     // Assert
     expect(wrapper.emitted('click')).toHaveLength(1);
-    expect(wrapper.emitted('click')![0][0]).toBeInstanceOf(MouseEvent);
+    const clickEvents = wrapper.emitted('click');
+    if (!clickEvents) {
+      throw new Error('Expected click event to be emitted');
+    }
+
+    const [event] = clickEvents[0] as unknown[];
+    expect(event).toBeInstanceOf(MouseEvent);
   });
 });

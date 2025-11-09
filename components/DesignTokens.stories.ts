@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import colorVariables from '~/assets/color-variables.json';
 
+type ColorVariables = typeof colorVariables;
+type ColorKey = keyof ColorVariables;
+
 // Organize colors by categories
 const colorCategories = {
   'Text Colors': {
@@ -27,7 +30,7 @@ const colorCategories = {
     mu: 'Favorite color 1',
     nu: 'Favorite color 2',
   },
-};
+} satisfies Record<string, Partial<Record<ColorKey, string>>>;
 
 // Generate HTML for color swatches
 export function generateColorSwatches() {
@@ -40,7 +43,7 @@ export function generateColorSwatches() {
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
     `;
 
-    Object.entries(colors).forEach(([varName, description]) => {
+    (Object.entries(colors) as [ColorKey, string][]).forEach(([varName, description]) => {
       const colorValue = colorVariables[varName];
       if (colorValue) {
         const isWhite = colorValue.toLowerCase() === 'white';
