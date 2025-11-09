@@ -131,10 +131,10 @@ npm run lint
 npm run lint:fix
 
 # Check code formatting
-npm run format:check
+npm run format
 
 # Auto-format code
-npm run format
+npm run format:fix
 
 # Type checking
 npm run typecheck

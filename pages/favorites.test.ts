@@ -20,8 +20,7 @@ describe('Favorites page', () => {
     AppLayout: defineComponent({
       name: 'AppLayout',
       setup(_, { slots }) {
-        return () =>
-          h('div', { class: 'app-layout-stub' }, [slots.header?.(), slots.default?.()]);
+        return () => h('div', { class: 'app-layout-stub' }, [slots.header?.(), slots.default?.()]);
       },
     }),
     PageHeader: defineComponent({
