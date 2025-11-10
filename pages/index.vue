@@ -119,12 +119,19 @@ onBeforeUnmount(() => {
 @use '~/assets/variables';
 @use '~/assets/utils';
 
-.loading-state,
-.empty-state,
-.loading-more {
+%state-message-base {
   padding: 2rem;
   text-align: center;
   color: variables.$zeta;
+}
+
+.loading-state,
+.loading-more {
+  @extend %state-message-base;
+}
+
+.empty-state {
+  @extend %state-message-base;
 }
 
 .sentinel {
