@@ -1,71 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import colorVariables from '~/assets/color-variables.json';
 
-type ColorVariables = typeof colorVariables;
-type ColorKey = keyof ColorVariables;
-
-// Organize colors by categories
-const colorCategories = {
-  'Text Colors': {
-    alpha: 'Primary text color',
-    delta: 'Placeholder text color',
-    epsilon: 'Info text color',
-    zeta: 'Page text color',
-  },
-  'Interactive Colors': {
-    beta: 'Hover/link color',
-    gamma: 'Active/hover state',
-  },
-  'Background Colors': {
-    kappa: 'Primary background (white)',
-    theta: 'Card background',
-    lambda: 'Accent background',
-  },
-  'Border & Separator Colors': {
-    iota: 'Primary border color',
-    eta: 'Separator color',
-    xi: 'Secondary border color',
-  },
-  'Favorite Colors': {
-    mu: 'Favorite color 1',
-    nu: 'Favorite color 2',
-  },
-} satisfies Record<string, Partial<Record<ColorKey, string>>>;
-
-// Generate HTML for color swatches
-export function generateColorSwatches() {
-  let html = '';
-
-  Object.entries(colorCategories).forEach(([categoryName, colors]) => {
-    html += `
-      <section style="margin-bottom: 3rem;">
-        <h2 style="margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600; color: #111827;">${categoryName}</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
-    `;
-
-    (Object.entries(colors) as [ColorKey, string][]).forEach(([varName, description]) => {
-      const colorValue = colorVariables[varName];
-      if (colorValue) {
-        const isWhite = colorValue.toLowerCase() === 'white';
-        html += `
-          <div style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
-            <div style="width: 100%; height: 80px; background-color: ${colorValue}; border-radius: 0.375rem; margin-bottom: 0.75rem; ${isWhite ? 'border: 1px solid #e5e7eb;' : ''}"></div>
-            <div style="font-weight: 600; margin-bottom: 0.25rem;">$${varName}</div>
-            <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">${colorValue}</div>
-            <div style="font-size: 0.75rem; color: #9ca3af; margin-top: 0.25rem;">${description}</div>
-          </div>
-        `;
-      }
-    });
-
-    html += `
-        </div>
-      </section>
-    `;
-  });
-
-  return html;
-}
+import { buildColorSwatchGroups } from './DesignTokens.helpers';
 
 const meta = {
   title: 'Design System/Design Tokens',
@@ -77,11 +12,45 @@ type Story = StoryObj<typeof meta>;
 
 export const Colors: Story = {
   render: () => ({
+    setup() {
+      return {
+        colorSwatchGroups: buildColorSwatchGroups(),
+      };
+    },
     template: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
         <h1 style="margin-bottom: 2rem; font-size: 2rem; font-weight: 700;">Color Palette</h1>
 
-        ${generateColorSwatches()}
+        <section
+          v-for="group in colorSwatchGroups"
+          :key="group.categoryName"
+          style="margin-bottom: 3rem;"
+        >
+          <h2 style="margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600; color: #111827;">
+            {{ group.categoryName }}
+          </h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+            <div
+              v-for="swatch in group.swatches"
+              :key="swatch.varName"
+              style="padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;"
+            >
+              <div
+                :style="{
+                  width: '100%',
+                  height: '80px',
+                  backgroundColor: swatch.colorValue,
+                  borderRadius: '0.375rem',
+                  marginBottom: '0.75rem',
+                  border: swatch.isWhite ? '1px solid #e5e7eb' : undefined,
+                }"
+              ></div>
+              <div style="font-weight: 600; margin-bottom: 0.25rem;">{{ '$' + swatch.varName }}</div>
+              <div style="font-size: 0.875rem; color: #6b7280; font-family: monospace;">{{ swatch.colorValue }}</div>
+              <div style="font-size: 0.75rem; color: #9ca3af; margin-top: 0.25rem;">{{ swatch.description }}</div>
+            </div>
+          </div>
+        </section>
       </div>
     `,
   }),
