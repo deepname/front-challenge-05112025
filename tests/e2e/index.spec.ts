@@ -74,6 +74,9 @@ test.describe('News Browser E2E', () => {
     await ensureArticlesLoaded(page);
     await page.waitForTimeout(200);
 
+    let successfulScrolls = 0;
+    let lastArticleCount = await page.locator(ARTICLE_CARD_SELECTOR).count();
+
     for (let i = 0; i < 50; i += 1) {
       const responsePromise = page.waitForResponse(
         response => response.url().includes('/api/') && response.request().method() === 'GET',
@@ -85,7 +88,21 @@ test.describe('News Browser E2E', () => {
       });
 
       await page.waitForTimeout(300);
-      await responsePromise;
+
+      try {
+        await responsePromise;
+      } catch {
+        break;
+      }
+
+      const currentCount = await page.locator(ARTICLE_CARD_SELECTOR).count();
+
+      if (currentCount <= lastArticleCount) {
+        break;
+      }
+
+      lastArticleCount = currentCount;
+      successfulScrolls += 1;
     }
 
     const scrollPosition = await page.evaluate(() => window.scrollY);
@@ -93,5 +110,6 @@ test.describe('News Browser E2E', () => {
 
     const articlesCount = await page.locator(ARTICLE_CARD_SELECTOR).count();
     expect(articlesCount).toBeGreaterThan(0);
+    expect(successfulScrolls).toBeGreaterThan(0);
   });
 });
