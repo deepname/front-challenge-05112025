@@ -193,7 +193,7 @@ npm run build-storybook
 - **Styling**: SCSS with CSS Modules
 - **State Management**: Pinia
 - **Component Architecture**: Atomic Design
-- **Testing/Documentation**: Storybook
+- **Testing/Documentation**: Vitest, Playwright and Storybook
 - **Code Quality**: ESLint + Prettier
 - **Build Tool**: Vite
 
@@ -265,15 +265,20 @@ The app integrates with the Hacker News API through a Nuxt proxy:
   - `GET /page/:number` - Fetch paginated news
   - `GET /search?text=:query` - Search news articles
 
-## 🧪 Testing & Documentation
+## 📚 Component Library & Storybook
 
 - **Storybook**: Interactive component documentation at `http://localhost:6006`
 - **Component Stories**: Each component has comprehensive stories with controls
+- **Play functions / interaction**: highlights that stories include play functions
+
+## 🧪 Testing & Documentation
+
+- **Unit Tests**: Unit tests using Vitest with happy-dom
+- **Playwright**: End-to-end tests using Playwright
 - **Type Safety**: Full TypeScript coverage with strict mode enabled
 
 ## 📈 Performance Features
 
-- **Lazy Loading**: Components auto-imported by Nuxt
 - **Code Splitting**: Automatic route-based splitting
 - **Optimized Builds**: Tree-shaking and minification
 - **Fast Refresh**: Hot module replacement in development
@@ -292,4 +297,4 @@ This project is part of a front-end challenge and is for educational purposes.
 
 ---
 
-**Built with ❤️ using Nuxt 4, Vue 3, and Atomic Design principles**
+***Built with ❤️ using Nuxt 4, Vue 3, and Atomic Design principles***
