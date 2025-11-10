@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import { useNewsStore } from '~/stores/newsStore';
 import { useFavoritesStore } from '~/stores/favoritesStore';
 import { useUrlSync } from '~/composables/useUrlSync';
@@ -45,14 +45,52 @@ const searchQuery = ref('');
 // Sync search query with URL
 useUrlSync('q', searchQuery);
 
-// Watch search query and trigger search
-watch(searchQuery, async newQuery => {
-  if (newQuery) {
-    await newsStore.search(newQuery);
-  } else {
-    newsStore.reset();
-    await newsStore.loadMore();
+const SEARCH_DEBOUNCE_MS = 3000;
+const MIN_QUERY_LENGTH = 3;
+let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+const resetAndLoad = async () => {
+  newsStore.reset();
+  await newsStore.loadMore();
+};
+
+const executeSearch = async (query: string) => {
+  await newsStore.search(query);
+};
+
+const clearDebounce = () => {
+  if (debounceTimer) {
+    clearTimeout(debounceTimer);
+    debounceTimer = null;
   }
+};
+
+// Watch search query and trigger search
+watch(searchQuery, newQuery => {
+  const trimmed = newQuery.trim();
+  clearDebounce();
+
+  if (!trimmed) {
+    void resetAndLoad();
+    return;
+  }
+
+  if (trimmed.length >= MIN_QUERY_LENGTH) {
+    void executeSearch(trimmed);
+    return;
+  }
+
+  debounceTimer = setTimeout(() => {
+    debounceTimer = null;
+    const current = searchQuery.value.trim();
+
+    if (!current) {
+      void resetAndLoad();
+      return;
+    }
+
+    void executeSearch(current);
+  }, SEARCH_DEBOUNCE_MS);
 });
 
 // Infinite scroll
@@ -67,6 +105,10 @@ onMounted(async () => {
   if (newsStore.articles.length === 0 && !searchQuery.value) {
     await newsStore.loadMore();
   }
+});
+
+onBeforeUnmount(() => {
+  clearDebounce();
 });
 </script>
 

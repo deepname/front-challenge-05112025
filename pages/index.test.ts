@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
 import { ref, reactive, nextTick, defineComponent, h, type Ref } from 'vue';
@@ -130,6 +130,7 @@ describe('Index page', () => {
   let urlSyncState: Ref<string>;
 
   beforeEach(() => {
+    vi.useFakeTimers();
     vi.clearAllMocks();
     setActivePinia(createPinia());
 
@@ -163,6 +164,10 @@ describe('Index page', () => {
     await nextTick();
     await nextTick();
   };
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
 
   it('renders loading state when loading and no articles', async () => {
     mockNewsStore.isLoading = true;
@@ -240,6 +245,24 @@ describe('Index page', () => {
 
     expect(urlSyncState.value).toBe('hello world');
     expect(mockNewsStore.search).toHaveBeenCalledWith('hello world');
+  });
+
+  it('debounces search when query shorter than minimum length', async () => {
+    const wrapper = mountIndex();
+
+    const searchInput = wrapper.findComponent({ name: 'SearchInput' });
+    searchInput.vm.$emit('update:modelValue', 'ab');
+
+    await flushUpdates();
+    expect(mockNewsStore.search).not.toHaveBeenCalled();
+
+    await vi.advanceTimersByTimeAsync(2999);
+    await flushUpdates();
+    expect(mockNewsStore.search).not.toHaveBeenCalled();
+
+    await vi.advanceTimersByTimeAsync(1);
+    await flushUpdates();
+    expect(mockNewsStore.search).toHaveBeenCalledWith('ab');
   });
 
   it('uses AppLayout wrapper', () => {
