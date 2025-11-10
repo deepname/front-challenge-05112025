@@ -1,3 +1,4 @@
+import { expect, userEvent, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import PageHeader from './PageHeader.vue';
 
@@ -14,6 +15,12 @@ export const Default: Story = {
   args: {
     title: 'News Browser',
   },
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const title = await canvas.findByRole('heading', { name: /news browser/i });
+
+    expect(title).toBeVisible();
+  },
 };
 
 export const WithActions: Story = {
@@ -29,10 +36,24 @@ export const WithActions: Story = {
       </PageHeader>
     `,
   }),
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const actionsNav = await canvas.findByRole('navigation');
+
+    expect(actionsNav).toBeVisible();
+  },
 };
 
 export const LongTitle: Story = {
   args: {
     title: 'This is a Very Long Page Title to Test How It Wraps',
+  },
+  async play({ canvasElement, args }) {
+    const canvas = within(canvasElement);
+    const heading = await canvas.findByRole('heading', {
+      name: new RegExp((args?.title ?? '').slice(0, 10), 'i'),
+    });
+
+    expect(heading).toBeVisible();
   },
 };

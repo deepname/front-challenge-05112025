@@ -1,3 +1,4 @@
+import { expect, userEvent, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
 import AppLayout from './AppLayout.vue';
@@ -28,6 +29,11 @@ export const Default: Story = {
       </AppLayout>
     `,
   }),
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const heading = await canvas.findByRole('heading', { name: /page header/i });
+    expect(heading).toBeVisible();
+  },
 };
 
 export const WithSearch: Story = {
@@ -60,6 +66,12 @@ export const WithSearch: Story = {
       </AppLayout>
     `,
   }),
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const searchBox = await canvas.findByRole('searchbox');
+
+    expect(searchBox).toBeVisible();
+  },
 };
 
 export const FullExample: Story = {
@@ -97,4 +109,10 @@ export const FullExample: Story = {
       </AppLayout>
     `,
   }),
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const favoritesLink = await canvas.findByRole('link', { name: /favorites \(3\)/i });
+
+    expect(favoritesLink).toBeVisible();
+  },
 };

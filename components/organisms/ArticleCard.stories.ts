@@ -1,3 +1,4 @@
+import { expect, fn, userEvent, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { computed, defineComponent, h } from 'vue';
 import type { NewsArticle } from '~/types/news';
@@ -52,7 +53,38 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  async play({ canvasElement, args }) {
+    const canvas = within(canvasElement);
+    const link = await canvas.findByRole('link', {
+      name: (args as NewsArticle).title,
+    });
+
+    expect(link).toHaveAttribute('href', (args as NewsArticle).url);
+
+    const toggle = await canvas.findByRole('button');
+
+    const storeGetter = (
+      globalThis as typeof globalThis & {
+        useFavoritesStore?: () => {
+          toggleFavorite(article: NewsArticle): void;
+        };
+      }
+    ).useFavoritesStore;
+
+    const store = storeGetter?.();
+    if (!store) {
+      return;
+    }
+
+    const spy = fn(store.toggleFavorite.bind(store));
+    store.toggleFavorite = spy;
+
+    await userEvent.click(toggle);
+
+    expect(spy).toHaveBeenCalledWith(args as NewsArticle);
+  },
+};
 
 export const LongTitle: Story = {
   args: {
@@ -64,6 +96,14 @@ export const LongTitle: Story = {
     age: '5 hours ago',
     comments: 128,
   },
+  async play({ canvasElement, args }) {
+    const canvas = within(canvasElement);
+    const link = await canvas.findByRole('link', {
+      name: (args as NewsArticle).title,
+    });
+
+    expect(link).toHaveAttribute('href', (args as NewsArticle).url);
+  },
 };
 
 export const HighScore: Story = {
@@ -74,5 +114,17 @@ export const HighScore: Story = {
     user: 'topcontributor',
     age: '1 hour ago',
     comments: 500,
+  },
+  async play({ canvasElement, args }) {
+    const canvas = within(canvasElement);
+    const scoreText = await canvas.findByText(/1500/);
+
+    expect(scoreText).toBeVisible();
+
+    const link = await canvas.findByRole('link', {
+      name: (args as NewsArticle).title,
+    });
+
+    expect(link).toHaveAttribute('href', (args as NewsArticle).url);
   },
 };
