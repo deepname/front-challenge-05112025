@@ -1,3 +1,4 @@
+import { expect, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import BaseLoader from './BaseLoader.vue';
 
@@ -25,12 +26,18 @@ export const Default: Story = {
         <h3 style="margin-bottom: 1rem; color: #111827;">
           Loading... 
           <div style="display: inline-flex; align-items: center; gap: 1rem;">
-            <BaseLoader />
+            <BaseLoader role="status" aria-label="loading indicator" />
           </div>
         </h3>
       </div>
     `,
   }),
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const loader = await canvas.findByRole('status');
+
+    expect(loader).toHaveClass('loader');
+  },
 };
 
 export const InCard: Story = {
@@ -39,7 +46,7 @@ export const InCard: Story = {
     template: `
       <div style="padding: 2rem; background-color: #f9fafb; border-radius: 0.5rem; border: 1px solid #e5e7eb;">
         <div style="display: flex; align-items: center; gap: 1rem;">
-          <BaseLoader />
+          <BaseLoader role="status" aria-label="card loading indicator" />
           <div>
             <h4 style="margin: 0; color: #111827;">Processing your request</h4>
             <p style="margin: 0.25rem 0 0 0; color: #6b7280; font-size: 0.875rem;">Please wait while we load your data...</p>
@@ -48,4 +55,10 @@ export const InCard: Story = {
       </div>
     `,
   }),
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const loader = await canvas.findByRole('status');
+
+    expect(loader).toHaveClass('loader');
+  },
 };

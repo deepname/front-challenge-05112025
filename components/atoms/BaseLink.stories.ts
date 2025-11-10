@@ -1,3 +1,4 @@
+import { expect, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import BaseLink from './BaseLink.vue';
 
@@ -33,6 +34,14 @@ export const Primary: Story = {
     },
     template: '<BaseLink v-bind="args">Primary Link</BaseLink>',
   }),
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const link = await canvas.findByRole('link', { name: /primary link/i });
+
+    expect(link).toHaveAttribute('href', '/');
+    expect(link).toHaveClass('base-link--primary');
+    expect(link).toHaveClass('base-link--md');
+  },
 };
 
 export const Secondary: Story = {
@@ -48,6 +57,14 @@ export const Secondary: Story = {
     },
     template: '<BaseLink v-bind="args">Secondary Link</BaseLink>',
   }),
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const link = await canvas.findByRole('link', { name: /secondary link/i });
+
+    expect(link).toHaveAttribute('href', '/');
+    expect(link).toHaveClass('base-link--secondary');
+    expect(link).toHaveClass('base-link--md');
+  },
 };
 
 export const Ghost: Story = {
@@ -63,4 +80,12 @@ export const Ghost: Story = {
     },
     template: '<BaseLink v-bind="args">Ghost Link</BaseLink>',
   }),
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const link = await canvas.findByRole('link', { name: /ghost link/i });
+
+    expect(link).toHaveAttribute('href', '/');
+    expect(link).toHaveClass('base-link--ghost');
+    expect(link).toHaveClass('base-link--md');
+  },
 };
