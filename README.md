@@ -12,31 +12,21 @@ This project demonstrates two key architectural patterns:
 ## 📁 Project Structure
 
 ```
-├── 🧩 components/               # Atomic Design Component Library
-│   ├── atoms/                   # Basic reusable components
-│   │   ├── BaseButton.vue       # Styled buttons with variants
-│   │   ├── BaseInput.vue        # Form inputs with sizes
-│   │   └── BaseLink.vue         # Navigation links
-│   ├── molecules/               # Simple component combinations
-│   │   ├── SearchInput.vue      # Search bar component
-│   │   └── FavoriteToggle.vue   # Favorite star button
-│   ├── organisms/               # Complex UI components
-│   │   ├── ArticleCard.vue      # News article display
-│   │   └── PageHeader.vue       # Page headers with actions
-│   └── templates/               # Page layout templates
-│       └── AppLayout.vue        # Main app layout
-├── 📖 pages/                    # Application pages
-│   ├── index.vue                # News listing with infinite scroll
-│   └── favorites.vue            # User favorites page
-├── 🏪 stores/                   # Pinia state management
-│   ├── newsStore.ts             # News data and pagination
-│   └── favoritesStore.ts        # User favorites (localStorage)
-├── 🎨 assets/                   # Styles and resources
-│   ├── _variables.scss          # Design tokens
-│   └── main.scss               # Global styles
-├── 📚 types/                    # TypeScript definitions
-└── 📖 composables/              # Reusable Vue composables
-    └── useUrlSync.ts            # URL state synchronization
+├── 🧩 components/               # Atomic Design component library
+│   ├── atoms/                   # Base UI primitives (buttons, inputs, links, etc.)
+│   ├── molecules/               # Small compositions (SearchInput, FavoriteToggle...)
+│   ├── organisms/               # Complex UI blocks (ArticleCard, PageHeader...)
+│   ├── templates/               # Layout-level components (AppLayout)
+│   └── tokens/                  # Design token helpers, stories and tests
+├── 📖 pages/                    # Nuxt page components (news list, favorites)
+├── 🏪 stores/                   # Pinia stores (newsStore, favoritesStore)
+├── 🎨 assets/                   # Global styles, variables and shared SCSS
+├── 📚 types/                    # Shared TypeScript definitions
+├── 🔁 composables/              # Reusable Vue composables & tests
+├── 🧪 tests/                    # End-to-end Storybook/Playwright tests
+├── ⚙️ config/                   # Testing setup files (Vitest setup)
+├── 📦 public/                   # Static assets served as-is
+└── 🔧 root files                # Nuxt/Vitest configs, Dockerfiles, README, etc.
 ```
 
 ## 🧩 Atomic Design Architecture
@@ -83,7 +73,29 @@ This project demonstrates two key architectural patterns:
 - **Debounced search** for performance
 - **Search state persistence** across page reloads
 
-## 🚀 Quick Start
+## 🚀 Quick Start With Docker
+
+### 🐳 Docker- Getting Started
+
+To run the project using Docker, make sure you have Docker and Docker Compose installed on your system.
+
+### 🚀 Start the Project
+
+Use docker-compose up with the -d flag to build (if necessary) and run all the services defined in your docker-compose.yml
+
+```bash
+docker-compose up
+```
+
+### 🛑 Stop the Project
+
+To stop the containers and remove the networks that Docker Compose created, use the following command.
+
+```bash
+docker-compose down -v
+```
+
+## 🚀 Quick Start without Docker
 
 ### Prerequisites
 
