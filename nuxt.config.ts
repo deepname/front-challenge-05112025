@@ -32,8 +32,8 @@ export default defineNuxtConfig({
   },
   nitro: {
     routeRules: {
-      'api/*': { proxy: `${apiTarget}/*` },
-      'api/search?text=*': { proxy: `${apiTarget}/search?text=*` },
+      'api/**': { proxy: `${apiTarget}/**` },
+      'api/search/**': { proxy: `${apiTarget}/search/**` },
     },
   },
 });
