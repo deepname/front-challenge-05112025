@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { expect, fn, userEvent, within } from '@storybook/test';
 import type { NewsArticle } from '~/types/news';
 import { computed, defineComponent, h } from 'vue';
 import FavoriteToggle from './FavoriteToggle.vue';
@@ -33,6 +34,7 @@ type FavoritesStore = {
   addFavorite(article: NewsArticle): void;
   removeFavorite(article: NewsArticle): void;
   isFavorite(article: NewsArticle): boolean;
+  toggleFavorite(article: NewsArticle): void;
 };
 
 function getFavoritesStore(): FavoritesStore | undefined {
@@ -72,11 +74,16 @@ type Story = StoryObj<typeof FavoriteTogglePreview>;
 export const NotFavorited: Story = {};
 
 export const Favorited: Story = {
-  play: async ({ args }) => {
+  play: async ({ canvasElement, args }) => {
     const store = getFavoritesStore();
     if (store) {
       store.addFavorite(args as NewsArticle);
     }
+
+    const canvas = within(canvasElement);
+    const toggle = await canvas.findByRole('button');
+
+    expect(toggle).toHaveClass('favorite-toggle--active');
   },
 };
 
@@ -91,4 +98,20 @@ export const Interactive: Story = {
       </div>
     `,
   }),
+  async play({ canvasElement, args }) {
+    const store = getFavoritesStore();
+    if (!store) {
+      return;
+    }
+
+    const toggleFavoriteSpy = fn(store.toggleFavorite.bind(store));
+    store.toggleFavorite = toggleFavoriteSpy as FavoritesStore['toggleFavorite'];
+
+    const canvas = within(canvasElement);
+    const toggle = await canvas.findByRole('button');
+
+    await userEvent.click(toggle);
+
+    expect(toggleFavoriteSpy).toHaveBeenCalledWith(args as NewsArticle);
+  },
 };

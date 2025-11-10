@@ -1,3 +1,4 @@
+import { expect, userEvent, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
 import SearchInput from './SearchInput.vue';
@@ -20,6 +21,14 @@ export const Default: Story = {
     },
     template: '<SearchInput v-model="searchQuery" />',
   }),
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const input = await canvas.findByRole('textbox', { name: /search news/i });
+
+    await userEvent.type(input, 'latest');
+
+    expect(input).toHaveValue('latest');
+  },
 };
 
 export const WithValue: Story = {
@@ -31,4 +40,15 @@ export const WithValue: Story = {
     },
     template: '<SearchInput v-model="searchQuery" />',
   }),
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const input = await canvas.findByRole('textbox', { name: /search news/i });
+
+    expect(input).toHaveValue('Vue.js');
+
+    await userEvent.clear(input);
+    await userEvent.type(input, 'Nuxt 4');
+
+    expect(input).toHaveValue('Nuxt 4');
+  },
 };
