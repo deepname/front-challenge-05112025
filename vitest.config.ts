@@ -23,7 +23,7 @@ export default defineConfig({
         'storybook-static/',
         'node_modules/',
         'types',
-        'test/',
+        'config/',
         'test-results/',
         'tests/',
         'stories/',
