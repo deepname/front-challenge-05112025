@@ -32,6 +32,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
+import { useSearchMemory } from '~/composables/useSearchMemory';
 import { useNewsStore } from '~/stores/newsStore';
 import { useFavoritesStore } from '~/stores/favoritesStore';
 import { useUrlSync } from '~/composables/useUrlSync';
@@ -41,6 +42,7 @@ const newsStore = useNewsStore();
 const favoritesStore = useFavoritesStore();
 
 const searchQuery = ref('');
+const { rememberLastSearch, loadLastSearch } = useSearchMemory();
 
 // Sync search query with URL
 useUrlSync('q', searchQuery);
@@ -71,24 +73,30 @@ watch(searchQuery, newQuery => {
   clearDebounce();
 
   if (!trimmed) {
+    rememberLastSearch('');
     void resetAndLoad();
     return;
   }
 
   if (trimmed.length < MIN_QUERY_LENGTH) {
+    rememberLastSearch('');
     return;
   }
+
+  rememberLastSearch(trimmed);
 
   debounceTimer = setTimeout(() => {
     debounceTimer = null;
     const current = searchQuery.value.trim();
 
     if (!current) {
+      rememberLastSearch('');
       void resetAndLoad();
       return;
     }
 
     if (current.length < MIN_QUERY_LENGTH) {
+      rememberLastSearch('');
       return;
     }
 
@@ -105,6 +113,13 @@ const { sentinel } = useInfiniteScroll(
 
 // Initial load
 onMounted(async () => {
+  if (!searchQuery.value) {
+    const savedSearch = loadLastSearch();
+    if (savedSearch) {
+      searchQuery.value = savedSearch;
+    }
+  }
+
   if (newsStore.articles.length === 0 && !searchQuery.value) {
     await newsStore.loadMore();
   }

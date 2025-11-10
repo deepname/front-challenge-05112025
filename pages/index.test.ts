@@ -8,6 +8,7 @@ import { useNewsStore } from '~/stores/newsStore';
 import { useFavoritesStore } from '~/stores/favoritesStore';
 import { useUrlSync } from '~/composables/useUrlSync';
 import { useInfiniteScroll } from '~/composables/useInfiniteScroll';
+import { useSearchMemory } from '~/composables/useSearchMemory';
 
 vi.mock('~/stores/newsStore', () => ({
   useNewsStore: vi.fn(),
@@ -25,6 +26,10 @@ vi.mock('~/composables/useInfiniteScroll', () => ({
   useInfiniteScroll: vi.fn(),
 }));
 
+vi.mock('~/composables/useSearchMemory', () => ({
+  useSearchMemory: vi.fn(),
+}));
+
 type MockNewsStore = {
   articles: NewsArticle[];
   isLoading: boolean;
@@ -36,6 +41,11 @@ type MockNewsStore = {
 
 type MockFavoritesStore = {
   favorites: NewsArticle[];
+};
+
+type MockSearchMemory = {
+  rememberLastSearch: ReturnType<typeof vi.fn>;
+  loadLastSearch: ReturnType<typeof vi.fn>;
 };
 
 const stubs = {
@@ -128,6 +138,7 @@ describe('Index page', () => {
   let mockNewsStore: MockNewsStore;
   let mockFavoritesStore: MockFavoritesStore;
   let urlSyncState: Ref<string>;
+  let mockSearchMemory: MockSearchMemory;
 
   beforeEach(() => {
     vi.useFakeTimers();
@@ -147,6 +158,11 @@ describe('Index page', () => {
       favorites: [],
     }) as MockFavoritesStore;
 
+    mockSearchMemory = {
+      rememberLastSearch: vi.fn(),
+      loadLastSearch: vi.fn().mockReturnValue(''),
+    };
+
     vi.mocked(useNewsStore).mockReturnValue(
       mockNewsStore as unknown as ReturnType<typeof useNewsStore>
     );
@@ -158,6 +174,9 @@ describe('Index page', () => {
       return { state };
     });
     vi.mocked(useInfiniteScroll).mockReturnValue({ sentinel: ref<HTMLElement | null>(null) });
+    vi.mocked(useSearchMemory).mockReturnValue(
+      mockSearchMemory as unknown as ReturnType<typeof useSearchMemory>
+    );
   });
 
   const flushUpdates = async () => {
@@ -247,6 +266,7 @@ describe('Index page', () => {
 
     expect(urlSyncState.value).toBe('hello world');
     expect(mockNewsStore.search).toHaveBeenCalledWith('hello world');
+    expect(mockSearchMemory.rememberLastSearch).toHaveBeenLastCalledWith('hello world');
   });
 
   it('debounces search when query shorter than minimum length', async () => {
@@ -265,6 +285,8 @@ describe('Index page', () => {
     await vi.advanceTimersByTimeAsync(1);
     await flushUpdates();
     expect(mockNewsStore.search).toHaveBeenCalledWith('ab');
+    expect(mockSearchMemory.rememberLastSearch).toHaveBeenCalledTimes(1);
+    expect(mockSearchMemory.rememberLastSearch).toHaveBeenLastCalledWith('ab');
   });
 
   it('uses AppLayout wrapper', () => {
@@ -309,5 +331,22 @@ describe('Index page', () => {
 
     expect(mockNewsStore.reset).toHaveBeenCalled();
     expect(mockNewsStore.loadMore).toHaveBeenCalled();
+    expect(mockSearchMemory.rememberLastSearch).toHaveBeenLastCalledWith('');
+  });
+
+  it('restores saved search from memory on mount', async () => {
+    mockSearchMemory.loadLastSearch.mockReturnValue('stored query');
+
+    const wrapper = mountIndex();
+
+    const searchInput = wrapper.findComponent({ name: 'SearchInput' });
+
+    await flushUpdates();
+    await vi.advanceTimersByTimeAsync(400);
+    await flushUpdates();
+
+    expect(searchInput.props('modelValue')).toBe('stored query');
+    expect(mockNewsStore.search).toHaveBeenCalledWith('stored query');
+    expect(mockSearchMemory.rememberLastSearch).toHaveBeenCalledWith('stored query');
   });
 });
