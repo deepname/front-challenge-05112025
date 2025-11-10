@@ -242,6 +242,8 @@ describe('Index page', () => {
     searchInput.vm.$emit('update:modelValue', 'hello world');
 
     await flushUpdates();
+    await vi.advanceTimersByTimeAsync(400);
+    await flushUpdates();
 
     expect(urlSyncState.value).toBe('hello world');
     expect(mockNewsStore.search).toHaveBeenCalledWith('hello world');
@@ -256,7 +258,7 @@ describe('Index page', () => {
     await flushUpdates();
     expect(mockNewsStore.search).not.toHaveBeenCalled();
 
-    await vi.advanceTimersByTimeAsync(2999);
+    await vi.advanceTimersByTimeAsync(399);
     await flushUpdates();
     expect(mockNewsStore.search).not.toHaveBeenCalled();
 
@@ -285,6 +287,8 @@ describe('Index page', () => {
 
     urlSyncState.value = 'test search';
 
+    await flushUpdates();
+    await vi.advanceTimersByTimeAsync(400);
     await flushUpdates();
 
     expect(mockNewsStore.search).toHaveBeenCalledWith('test search');

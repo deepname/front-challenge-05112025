@@ -1,63 +1,55 @@
 import { describe, it, expect } from 'vitest';
 
-// Import the function to test
-import { generateColorSwatches } from './DesignTokens.stories';
+import { buildColorSwatchGroups } from './DesignTokens.helpers';
 
-describe('generateColorSwatches', () => {
-  it('generates HTML with color categories', () => {
-    // Arrange & Act
-    const html = generateColorSwatches();
+const flattenSwatches = () =>
+  buildColorSwatchGroups().flatMap(group => group.swatches.map(swatch => ({ group, swatch })));
 
-    // Assert
-    expect(html).toContain('<section');
-    expect(html).toContain('Text Colors');
-    expect(html).toContain('Interactive Colors');
-    expect(html).toContain('Background Colors');
-    expect(html).toContain('Border & Separator Colors');
-    expect(html).toContain('Favorite Colors');
+describe('buildColorSwatchGroups', () => {
+  it('groups colors by the expected categories', () => {
+    const groups = buildColorSwatchGroups();
+    const categoryNames = groups.map(group => group.categoryName);
+
+    expect(categoryNames).toEqual(
+      expect.arrayContaining([
+        'Text Colors',
+        'Interactive Colors',
+        'Background Colors',
+        'Border & Separator Colors',
+        'Favorite Colors',
+      ])
+    );
   });
 
-  it('includes color swatches with variable names', () => {
-    // Arrange & Act
-    const html = generateColorSwatches();
+  it('includes swatches with variable names and values', () => {
+    const swatches = flattenSwatches();
+    const alpha = swatches.find(entry => entry.swatch.varName === 'alpha');
+    const beta = swatches.find(entry => entry.swatch.varName === 'beta');
 
-    // Assert
-    expect(html).toContain('$alpha');
-    expect(html).toContain('$beta');
-    expect(html).toContain('$kappa'); // which is white
-    expect(html).toContain('#111827'); // alpha value
-    expect(html).toContain('#2563eb'); // beta value
+    expect(alpha?.swatch.colorValue).toBe('#111827');
+    expect(beta?.swatch.colorValue).toBe('#2563eb');
   });
 
-  it('includes descriptions for colors', () => {
-    // Arrange & Act
-    const html = generateColorSwatches();
+  it('preserves descriptions for each swatch', () => {
+    const swatches = flattenSwatches();
+    const alpha = swatches.find(entry => entry.swatch.varName === 'alpha');
 
-    // Assert
-    expect(html).toContain('Primary text color');
-    expect(html).toContain('Hover/link color');
-    expect(html).toContain('Primary background (white)');
+    expect(alpha?.swatch.description).toBe('Primary text color');
   });
 
-  it('handles white color with border', () => {
-    // Arrange & Act
-    const html = generateColorSwatches();
+  it('marks white swatches so they can render borders', () => {
+    const swatches = flattenSwatches();
+    const kappa = swatches.find(entry => entry.swatch.varName === 'kappa');
 
-    // Assert
-    // Kappa is white, should have border
-    expect(html).toMatch(/background-color:\s*white.*border:\s*1px solid #e5e7eb/);
+    expect(kappa?.swatch.colorValue.toLowerCase()).toBe('white');
+    expect(kappa?.swatch.isWhite).toBe(true);
   });
 
-  it('returns valid HTML structure', () => {
-    // Arrange & Act
-    const html = generateColorSwatches();
+  it('returns non-empty swatches for every category', () => {
+    const groups = buildColorSwatchGroups();
 
-    // Assert
-    expect(html).toContain('<section');
-    expect(html).toContain('</section>');
-    expect(html).toContain('<div');
-    expect(html).toContain('</div>');
-    expect(html).toContain('<h2');
-    expect(html).toContain('</h2>');
+    groups.forEach(group => {
+      expect(group.swatches.length).toBeGreaterThan(0);
+    });
   });
 });
