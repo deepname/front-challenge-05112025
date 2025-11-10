@@ -4,13 +4,13 @@ services:
       context: .
       dockerfile: Dockerfile.app
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
-      - NUXT_HOST=0.0.0.0
+      - NUXT_HOST=hostname
       - NUXT_PORT=3000
       - NUXT_PUBLIC_API_URL=http://host.docker.internal:4000
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - 'host.docker.internal:host-gateway'
     volumes:
       - .:/app
       - /app/node_modules
@@ -20,11 +20,11 @@ services:
       context: .
       dockerfile: Dockerfile.storybook
     ports:
-      - "6006:6006"
+      - '6006:6006'
     environment:
       - NUXT_PUBLIC_API_URL=http://host.docker.internal:4000
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - 'host.docker.internal:host-gateway'
     volumes:
       - .:/app
       - /app/node_modules

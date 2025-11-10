@@ -69,7 +69,7 @@ export function buildColorSwatchGroups(): ColorSwatchGroup[] {
           colorValue,
           isWhite: colorValue.toLowerCase() === 'white',
         } satisfies ColorSwatch;
-      },
+      }
     );
 
     return {
