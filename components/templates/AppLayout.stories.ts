@@ -1,4 +1,4 @@
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
 import AppLayout from './AppLayout.vue';
