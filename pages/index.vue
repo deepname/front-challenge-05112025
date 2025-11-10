@@ -45,8 +45,8 @@ const searchQuery = ref('');
 // Sync search query with URL
 useUrlSync('q', searchQuery);
 
-const SEARCH_DEBOUNCE_MS = 3000;
-const MIN_QUERY_LENGTH = 3;
+const SEARCH_DEBOUNCE_MS = 400;
+const MIN_QUERY_LENGTH = 2;
 let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
 const resetAndLoad = async () => {
@@ -75,8 +75,7 @@ watch(searchQuery, newQuery => {
     return;
   }
 
-  if (trimmed.length >= MIN_QUERY_LENGTH) {
-    void executeSearch(trimmed);
+  if (trimmed.length < MIN_QUERY_LENGTH) {
     return;
   }
 
@@ -86,6 +85,10 @@ watch(searchQuery, newQuery => {
 
     if (!current) {
       void resetAndLoad();
+      return;
+    }
+
+    if (current.length < MIN_QUERY_LENGTH) {
       return;
     }
 
