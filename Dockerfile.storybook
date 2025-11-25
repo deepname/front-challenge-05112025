@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 6006
 
-CMD ["npm", "run", "storybook"]
+CMD ["sh", "-c", "npx nuxi prepare && npm run storybook"]
